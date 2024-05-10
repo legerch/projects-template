@@ -40,4 +40,25 @@
  *********************************/
 #define BENCHMG_FALLTHROUGH  [[fallthrough]]    /**< Indicates that the fall through from the previous case label is intentional and should not be diagnosed by a compiler that warns on fallthrough */
 
+/**********************************
+ * Context informations
+ *********************************/
+#define LIBRARYNAME_FILE            __FILE__
+#define LIBRARYNAME_LINE            __LINE__
+#define LIBRARYNAME_FCTNAME         __func__
+
+#define LIBRARYNAME_FCTSIG          Q_FUNC_INFO
+
+/**********************************
+ * Classes behaviours
+ *********************************/
+#define LIBRARYNAME_DISABLE_COPY(Class) \
+    Q_DISABLE_COPY(Class)
+
+#define LIBRARYNAME_DISABLE_MOVE(Class) \
+    Q_DISABLE_MOVE(Class)
+
+#define LIBRARYNAME_DISABLE_COPY_MOVE(Class) \
+    Q_DISABLE_COPY_MOVE(Class)
+
 #endif // LIBRARYNAME_GLOBAL_H

@@ -47,4 +47,32 @@
  *********************************/
 #define LIBRARYNAME_FALLTHROUGH  [[fallthrough]]    /**< Indicates that the fall through from the previous case label is intentional and should not be diagnosed by a compiler that warns on fallthrough */
 
+/**********************************
+ * Context informations
+ *********************************/
+#define LIBRARYNAME_FILE            __FILE__
+#define LIBRARYNAME_LINE            __LINE__
+#define LIBRARYNAME_FCTNAME         __func__
+
+#if defined(_MSC_VER)
+#define LIBRARYNAME_FCTSIG          __FUNCSIG__
+#else
+#define LIBRARYNAME_FCTSIG          __PRETTY_FUNCTION__
+#endif
+
+/**********************************
+ * Classes behaviours
+ *********************************/
+#define LIBRARYNAME_DISABLE_COPY(Class) \
+    Class(const Class &) = delete;\
+    Class &operator=(const Class &) = delete;
+
+#define LIBRARYNAME_DISABLE_MOVE(Class) \
+    Class(Class &&) = delete; \
+    Class &operator=(Class &&) = delete;
+
+#define LIBRARYNAME_DISABLE_COPY_MOVE(Class) \
+    LIBRARYNAME_DISABLE_COPY(Class) \
+    LIBRARYNAME_DISABLE_MOVE(Class)
+
 #endif // LIBRARYNAME_GLOBAL_H
