@@ -7,7 +7,7 @@
 /**********************************
  * Library management
  *********************************/
-#if defined(LIBRARYNAME_LIB)
+#if defined(LIBRARYNAME_LIB_BUILD)
 #  define LIBRARYNAME_EXPORT Q_DECL_EXPORT
 #else
 #  define LIBRARYNAME_EXPORT Q_DECL_IMPORT

@@ -7,13 +7,13 @@
  * Library management
  *********************************/
 #ifdef __GNUC__
-#   if defined(LIBRARYNAME_LIBRARY)
+#   if defined(LIBRARYNAME_LIBRARY_BUILD)
 #       define LIBRARYNAME_EXPORT __attribute__((visibility("default")))
 #   else
 #       define LIBRARYNAME_EXPORT
 #   endif
 #else
-#   if defined(LIBRARYNAME_LIBRARY)
+#   if defined(LIBRARYNAME_LIBRARY_BUILD)
 #       define LIBRARYNAME_EXPORT __declspec(dllexport)
 #   else
 #       define LIBRARYNAME_EXPORT __declspec(dllimport)

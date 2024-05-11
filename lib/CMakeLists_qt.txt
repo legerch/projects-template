@@ -101,7 +101,7 @@ set(JSON_ImplicitConversions OFF CACHE INTERNAL "")
 target_link_libraries(${PROJECT_NAME} LINK_PUBLIC nlohmann_json::nlohmann_json)
 
 # Compile needed definitions
-target_compile_definitions(${PROJECT_NAME} PRIVATE LIBRARYNAME_LIBRARY)
+target_compile_definitions(${PROJECT_NAME} PRIVATE LIBRARYNAME_LIBRARY_BUILD)
 
 # Definition which depends on options
 # Ex :
