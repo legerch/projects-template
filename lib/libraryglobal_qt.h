@@ -28,9 +28,9 @@
  * - Clang: https://clang.llvm.org/docs/LanguageExtensions.html#has-builtin
  *********************************/
 #if defined(__GNUC__) || defined(__clang__)
-#define BENCHMG_BUILTIN(x)  __has_builtin(x)
+#define LIBRARYNAME_BUILTIN(x)  __has_builtin(x)
 #else
-#define BENCHMG_BUILTIN(x)  0
+#define LIBRARYNAME_BUILTIN(x)  0
 #endif
 
 /**********************************
@@ -38,7 +38,7 @@
  * not trigger warning on expected
  * behaviour
  *********************************/
-#define BENCHMG_FALLTHROUGH  [[fallthrough]]    /**< Indicates that the fall through from the previous case label is intentional and should not be diagnosed by a compiler that warns on fallthrough */
+#define LIBRARYNAME_FALLTHROUGH  [[fallthrough]]    /**< Indicates that the fall through from the previous case label is intentional and should not be diagnosed by a compiler that warns on fallthrough */
 
 /**********************************
  * Context informations
