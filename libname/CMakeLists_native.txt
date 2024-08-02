@@ -17,10 +17,6 @@ project(${PROJECT_NAME} VERSION "${PROJECT_VERSION_SEMANTIC}")
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-set(CMAKE_AUTOUIC ON)   # Specific to Qt
-set(CMAKE_AUTOMOC ON)   # Specific to Qt
-set(CMAKE_AUTORCC ON)   # Specific to Qt
-
 # Set C++ standard to use
 if(DEFINED CMAKE_CXX_STANDARD)
     if(${CMAKE_CXX_STANDARD} LESS ${PROJECT_VERSION_CPP_MIN})
@@ -35,10 +31,6 @@ message(STATUS "Project \"${PROJECT_NAME}\" compiled with C++ standard ${CMAKE_C
 # Set needed packages
 ## Example: find_package(nlohmann_json 3.11.3 REQUIRED)
 
-## Find Qt packages
-find_package(QT NAMES Qt6 Qt5 COMPONENTS Core REQUIRED)
-find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core REQUIRED)
-
 # Configure file project - File containing macro that can be used in project
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/config.h.in" "${CMAKE_CURRENT_SOURCE_DIR}/config.h")
 
@@ -52,15 +44,11 @@ set(PROJECT_SOURCES
 
 )
 
-set(PROJECT_UI
-
-)
-
 set(PROJECT_RSC
 
 )
 
-set(PROJECT_FILES ${PROJECT_HEADERS} ${PROJECT_SOURCES} ${PROJECT_UI} ${PROJECT_RSC})
+set(PROJECT_FILES ${PROJECT_HEADERS} ${PROJECT_SOURCES} ${PROJECT_RSC})
 
 # Platform dependant stuff
 # Windows (for both x86/x64)
@@ -86,11 +74,8 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
                         VERSION ${PROJECT_VERSION}
                         SOVERSION ${PROJECT_VERSION_MAJOR})
 
-# Link needed libraries
-## Qt Library
-target_link_libraries(${PROJECT_NAME} PRIVATE Qt${QT_VERSION_MAJOR}::Core)
-
-## Other examples
+# Link needed libraries (those below are examples)
+## Examples
 ### Matrix library
 target_link_libraries(${PROJECT_NAME} PRIVATE Eigen3::Eigen)
 
@@ -110,4 +95,5 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE LIBRARYNAME_LIBRARY_BUILD)
 # endif()
 
 # Directories to includes
-target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+cmake_path(GET CMAKE_CURRENT_SOURCE_DIR PARENT_PATH PROJECT_ROOT_DIR)
+target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_ROOT_DIR})

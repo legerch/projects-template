@@ -17,7 +17,7 @@ This is only a template repository, multiple files need to be _adjusted_:
 - `Doxyfile`
 - `CHANGELOG.md`
 - `CMakeLists`: project name, subdirectories to use, etc...
-- `lib/`:
+- `libname/`: rename it to library name
   - `CMakeLists.txt`: choose between native and Qt, then set project name, dependencies, etc...
   - `libraryglobal.h`: better to rename to **actual** library name, choose native/Qt, set macros to better library names
 - `tests/`:

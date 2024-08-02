@@ -28,4 +28,4 @@ endif()
 
 # Run subdirectory routine
 # add_subdirectory(deps/googletest)
-add_subdirectory(lib)
+add_subdirectory(libname)
