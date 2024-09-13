@@ -50,6 +50,12 @@
 #define LIBRARYNAME_FCTSIG          Q_FUNC_INFO
 
 /**********************************
+ * Variables attributes
+ *********************************/
+#define LIBRARYNAME_VAR_MAYBE_UNUSED    [[maybe_unused]]
+#define LIBRARYNAME_VAR_UNUSED          LIBRARYNAME_VAR_MAYBE_UNUSED
+
+/**********************************
  * Classes behaviours
  *********************************/
 #define LIBRARYNAME_DISABLE_COPY(Class) \
