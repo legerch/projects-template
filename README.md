@@ -37,10 +37,11 @@ Tools minimal versions set are:
 
 Those _helpers_ can also be useful when creating new C++ library:
 - [AbstractLogger][repo-helper-abstract-logger]: Abstract logger implementation example that allow to have a logging behaviour inside of a library without being tied to a specific logging library API, allowing application developpers to use **their** logging behaviour/dependencies.
-
+- [Doxygen tutorial][tutorial-doxygen]
 
 <!-- Links of this reposiory -->
-[repo-lib-header-macros]: lib/libraryglobal_native.h
+[repo-lib-header-macros]: libname/libraryglobal_native.h
 
 <!-- External links -->
 [repo-helper-abstract-logger]: https://github.com/legerch/AbstractLogger
+[tutorial-doxygen]: https://github.com/legerch/develop-memo/tree/master/Documentation
