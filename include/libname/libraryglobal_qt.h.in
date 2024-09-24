@@ -1,17 +1,33 @@
 #ifndef LIBRARYNAME_GLOBAL_H
 #define LIBRARYNAME_GLOBAL_H
 
-#include "config.h"
-#include <QtGlobal>
-
 /**********************************
  * Library management
  *********************************/
-#if defined(LIBRARYNAME_LIB_BUILD)
+#if defined(LIBRARYNAME_LIBRARY_BUILD)
 #  define LIBRARYNAME_EXPORT Q_DECL_EXPORT
 #else
 #  define LIBRARYNAME_EXPORT Q_DECL_IMPORT
 #endif
+
+/**********************************
+ * Version management
+ *********************************/
+#define LIBRARYNAME_VERSION_ENCODE(major, minor, path)    ((major) * 10000 + (minor) * 100 + (patch))   /**< Use to perform compilation version comparisons. Example:
+                                                                                                            \code{.cpp}
+                                                                                                            #if LIBRARYNAME_VERSION >= LIBRARYNAME_VERSION_ENCODE(1,0,0)
+                                                                                                                // Do stuff for version 1.0.0 or higher
+                                                                                                            #else
+                                                                                                                // Do stuff for version 0.0.x
+                                                                                                            #endif
+                                                                                                            \endcode
+                                                                                                        */
+
+#define LIBRARYNAME_VERSION_MAJOR @PROJECT_VERSION_MAJOR@
+#define LIBRARYNAME_VERSION_MINOR @PROJECT_VERSION_MINOR@
+#define LIBRARYNAME_VERSION_PATCH @PROJECT_VERSION_PATCH@
+#define LIBRARYNAME_VERSION       LIBRARYNAME_VERSION_ENCODE(LIBRARYNAME_VERSION_MAJOR, LIBRARYNAME_VERSION_MINOR, LIBRARYNAME_VERSION_PATCH)
+#define LIBRARYNAME_VERSION_STR   "@PROJECT_VERSION@"
 
 /**********************************
  * Deprecations warnings
@@ -28,9 +44,9 @@
  * - Clang: https://clang.llvm.org/docs/LanguageExtensions.html#has-builtin
  *********************************/
 #if defined(__GNUC__) || defined(__clang__)
-#define LIBRARYNAME_BUILTIN(x)  __has_builtin(x)
+#   define LIBRARYNAME_BUILTIN(x)  __has_builtin(x)
 #else
-#define LIBRARYNAME_BUILTIN(x)  0
+#   define LIBRARYNAME_BUILTIN(x)  0
 #endif
 
 /**********************************
