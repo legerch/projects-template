@@ -100,7 +100,13 @@ target_compile_options(${PROJECT_NAME} PRIVATE
 )
 
 # Compile needed definitions
+## Library related
 target_compile_definitions(${PROJECT_NAME} PRIVATE LIBRARYNAME_LIBRARY_BUILD)
+
+## Platform dependant
+if(WIN32)
+    target_compile_definitions(${PROJECT_NAME} PRIVATE NOMINMAX)    # Needed because Windows define macros "min/max", better to not defined those and use "std::min/std::max" instead
+endif()
 
 # Specify include directories
 target_include_directories(${PROJECT_NAME}
