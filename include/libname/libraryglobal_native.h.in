@@ -1,6 +1,34 @@
 #ifndef LIBRARYNAME_GLOBAL_H
 #define LIBRARYNAME_GLOBAL_H
 
+/*!
+ * \file libraryglobal_native.h
+ */
+
+/**********************************
+ * Version management
+ *********************************/
+
+/*!
+ * \brief Use to perform compilation version comparisons
+ * \details
+ * For example:
+ * \code{.cpp}
+ * #if LIBRARYNAME_VERSION >= LIBRARYNAME_VERSION_ENCODE(1,0,0)
+ *     // Do stuff for version 1.0.0 or higher
+ * #else
+ *     // Do stuff for version 0.0.x
+ * #endif
+ * \endcode
+ */
+#define LIBRARYNAME_VERSION_ENCODE(major, minor, path)    ((major) * 10000 + (minor) * 100 + (patch))
+
+#define LIBRARYNAME_VERSION_MAJOR @PROJECT_VERSION_MAJOR@
+#define LIBRARYNAME_VERSION_MINOR @PROJECT_VERSION_MINOR@
+#define LIBRARYNAME_VERSION_PATCH @PROJECT_VERSION_PATCH@
+#define LIBRARYNAME_VERSION       LIBRARYNAME_VERSION_ENCODE(LIBRARYNAME_VERSION_MAJOR, LIBRARYNAME_VERSION_MINOR, LIBRARYNAME_VERSION_PATCH)
+#define LIBRARYNAME_VERSION_STR   "@PROJECT_VERSION@"
+
 /**********************************
  * Library management
  *********************************/
@@ -17,25 +45,6 @@
 #       define LIBRARYNAME_EXPORT __declspec(dllimport)
 #   endif
 #endif
-
-/**********************************
- * Version management
- *********************************/
-#define LIBRARYNAME_VERSION_ENCODE(major, minor, path)    ((major) * 10000 + (minor) * 100 + (patch))   /**< Use to perform compilation version comparisons. Example:
-                                                                                                            \code{.cpp}
-                                                                                                            #if LIBRARYNAME_VERSION >= LIBRARYNAME_VERSION_ENCODE(1,0,0)
-                                                                                                                // Do stuff for version 1.0.0 or higher
-                                                                                                            #else
-                                                                                                                // Do stuff for version 0.0.x
-                                                                                                            #endif
-                                                                                                            \endcode
-                                                                                                        */
-
-#define LIBRARYNAME_VERSION_MAJOR @PROJECT_VERSION_MAJOR@
-#define LIBRARYNAME_VERSION_MINOR @PROJECT_VERSION_MINOR@
-#define LIBRARYNAME_VERSION_PATCH @PROJECT_VERSION_PATCH@
-#define LIBRARYNAME_VERSION       LIBRARYNAME_VERSION_ENCODE(LIBRARYNAME_VERSION_MAJOR, LIBRARYNAME_VERSION_MINOR, LIBRARYNAME_VERSION_PATCH)
-#define LIBRARYNAME_VERSION_STR   "@PROJECT_VERSION@"
 
 /**********************************
  * Deprecations warnings
@@ -97,5 +106,9 @@
 #define LIBRARYNAME_DISABLE_COPY_MOVE(Class) \
     LIBRARYNAME_DISABLE_COPY(Class) \
     LIBRARYNAME_DISABLE_MOVE(Class)
+
+/*!
+ * \endcond
+ */
 
 #endif // LIBRARYNAME_GLOBAL_H
