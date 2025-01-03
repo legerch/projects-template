@@ -13,6 +13,10 @@ _TODO: simple project description_
   - [1.2. Dependencies](#12-dependencies)
 - [2. How to build](#2-how-to-build)
 - [3. How to use](#3-how-to-use)
+  - [3.1. A custom section](#31-a-custom-section)
+  - [3.2. Library version](#32-library-version)
+    - [3.2.1. Compilation time](#321-compilation-time)
+    - [3.2.2. Runtime](#322-runtime)
 - [4. Library details](#4-library-details)
 - [5. Documentation](#5-documentation)
 - [6. License](#6-license)
@@ -48,8 +52,30 @@ target_link_libraries(${PROJECT_NAME} PRIVATE mylibrary)
 ```
 
 # 3. How to use
+## 3.1. A custom section
 
 _TODO: Describe how to use library_
+
+## 3.2. Library version
+### 3.2.1. Compilation time
+
+In order to easily check at compilation time library version (to manage compatibility between multiple versions for example), macro `LIBRARYNAME_VERSION_ENCODE` (defined inside _libraryglobal.h_ file) can be used:
+```cpp
+#if LIBRARYNAME_VERSION >= LIBRARYNAME_VERSION_ENCODE(2,0,0)
+    // Do stuff for version 2.0.0 or higher
+#else
+    // Do stuff for earlier versions
+#endif
+```
+
+### 3.2.2. Runtime
+
+At runtime, it is recommended to use the static method:
+```cpp
+#include "libname/myclass.h"
+
+const QVersionNumber &libSemver = libnamespace::MyClass::getLibraryVersion();
+```
 
 # 4. Library details
 
