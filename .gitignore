@@ -1,6 +1,10 @@
+# OS files
+.DS_Store
+
 # IDE Configuration
 .vscode/
 *.user
+*.code-workspace
 
 # Doc generation
 html/
