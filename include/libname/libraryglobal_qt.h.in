@@ -3,7 +3,13 @@
 
 /*!
  * \file libraryglobal_qt.h
+ *
+ * \note
+ * Based on <a href="https://github.com/legerch/library-template">Library template repository</a>.
+ * Template file version: 1.0.0
  */
+
+#include <QtGlobal>
 
 /**********************************
  * Library informations
@@ -15,7 +21,7 @@
  *********************************/
 
 /*!
- * \brief Use to perform compilation version comparisons
+ * \brief Use to perform compilation version comparaisons
  * \details
  * For example:
  * \code{.cpp}
@@ -100,6 +106,22 @@
 
 #define LIBRARYNAME_DISABLE_COPY_MOVE(Class) \
     Q_DISABLE_COPY_MOVE(Class)
+
+/**********************************
+ * Qt Compatibility workaround
+ *********************************/
+
+ #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+#   define LIBRARYNAME_QTCOMPAT_VARIANT_TYPE(var)    (var.type())
+#else
+#   define LIBRARYNAME_QTCOMPAT_VARIANT_TYPE(var)    (var.metaType())
+#endif
+
+#if QT_VERSION < QT_VERSION_CHECK(6, 4, 0)
+#   define LIBRARYNAME_QTCOMPAT_STR_VIEW const QString&
+#else
+#   define LIBRARYNAME_QTCOMPAT_STR_VIEW QAnyStringView
+#endif
 
 /*!
  * \endcond

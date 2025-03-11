@@ -3,6 +3,10 @@
 
 /*!
  * \file libraryglobal_native.h
+ *
+ * \note
+ * Based on <a href="https://github.com/legerch/library-template">Library template repository</a>.
+ * Template file version: 1.0.0
  */
 
 /**********************************
@@ -15,7 +19,7 @@
  *********************************/
 
 /*!
- * \brief Use to perform compilation version comparisons
+ * \brief Use to perform compilation version comparaisons
  * \details
  * For example:
  * \code{.cpp}
