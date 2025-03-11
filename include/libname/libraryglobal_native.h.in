@@ -6,13 +6,14 @@
  *
  * \note
  * Based on <a href="https://github.com/legerch/library-template">Library template repository</a>.
- * Template file version: 1.0.0
+ * Template file version: 2025-03-11
  */
 
 /**********************************
  * Library informations
  *********************************/
-#define LIBRARYNAME_INFO_NAME   "@PROJECT_NAME@"
+#define LIBRARYNAME_INFO_ID     "@PROJECT_NAME@"
+#define LIBRARYNAME_INFO_NAME   "@PROJECT_NAME_READABLE@"
 
 /**********************************
  * Version management

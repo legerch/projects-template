@@ -1,7 +1,11 @@
 cmake_minimum_required(VERSION 3.19)
 
 # Set project properties
-set(PROJECT_NAME libraryname)
+set(PROJECT_COMPANY_ID mycompanyid)
+set(PROJECT_COMPANY_NAME "My Company Name")
+set(PROJECT_NAME libraryid)
+set(PROJECT_NAME_READABLE "My Library Name")
+
 set(PROJECT_VERSION_SEMANTIC 0.0.1)
 set(PROJECT_VERSION_CPP_MIN 17)
 
