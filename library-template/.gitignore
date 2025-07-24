@@ -7,11 +7,12 @@
 *.code-workspace
 
 # Doc generation
-html/
-latex/
+api-internal/
+api-public/
 
 # Binaries
 build/
 
 # Auto generated files
-libraryglobal.h
+library_global.h
+metadata/windows/infos.rc
