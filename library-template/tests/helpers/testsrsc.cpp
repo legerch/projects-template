@@ -1,20 +1,4 @@
-#include "rpctestshelper.h"
-
-/*****************************/
-/* Class documentations      */
-/*****************************/
-
-/*****************************/
-/* Enum documentations       */
-/*****************************/
-
-/*****************************/
-/* Structure documentations  */
-/*****************************/
-
-/*****************************/
-/* Signals documentations    */
-/*****************************/
+#include "testsrsc.h"
 
 /*****************************/
 /* Macro definitions         */
@@ -35,7 +19,7 @@
 /* Functions implementations */
 /*****************************/
 
-std::string RpcTestsHelper::getPathExternalRsc(const std::string &filename)
+std::string TestsRsc::getPathExternalRsc(const std::string &filename)
 {
     return LIBRARYNAME_TESTS_DIR_EXTERNAL_RSC + filename;
 }
