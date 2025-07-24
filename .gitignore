@@ -5,13 +5,3 @@
 .vscode/
 *.user
 *.code-workspace
-
-# Doc generation
-html/
-latex/
-
-# Binaries
-build/
-
-# Auto generated files
-libraryglobal.h
