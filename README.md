@@ -1,3 +1,9 @@
+//TODO: section "library template"
+//TODO: lib -> global file qt/native
+//TODO: lib -> cmakelist qt/native
+//TODO: lib -> metadata files
+//TODO: section "app template"
+
 This repository contains a template used when creating new C++ library. Multiple _type_ of libraries are available:
 - Native
 - Qt compatible

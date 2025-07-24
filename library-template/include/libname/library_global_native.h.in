@@ -2,7 +2,7 @@
 #define LIBRARYNAME_GLOBAL_H
 
 /*!
- * \file libraryglobal_native.h
+ * \file library_global.h
  *
  * \note
  * Based on <a href="https://github.com/legerch/projects-template">Projects template repository</a>.

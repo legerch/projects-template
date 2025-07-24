@@ -1,18 +1,30 @@
-cmake_minimum_required(VERSION 3.19)
+# CMakeLists file based on project template repository: https://github.com/legerch/projects-template
+## Template file version: 2025-07-24 
+
+cmake_minimum_required(VERSION 3.20)
 
 # Set project properties
-set(PROJECT_COMPANY_ID mycompanyid)
-set(PROJECT_COMPANY_NAME "My Company Name")
-set(PROJECT_NAME libraryid)
-set(PROJECT_NAME_READABLE "My Library Name")
+set(PRJ_COMPANY_ID mycompanyid)
+set(PRJ_COMPANY_NAME "My Company")
+set(PRJ_ID mylibraryid)
+set(PRJ_READABLE_NAME "My Great Library")
+set(PRJ_VERSION_SEMANTIC 0.0.1)
+set(PRJ_DESCRIPTION "Short description of what my library do.")
+set(PRJ_LICENSE "MIT")
+set(PRJ_COPYRIGHT "Copyright (c) 2025 ${PRJ_COMPANY_NAME} (${PRJ_LICENSE} License)")
+set(PRJ_HOMEPAGE_URL "https://github.com/")
 
-set(PROJECT_VERSION_SEMANTIC 0.0.1)
+set(PROJECT_NAME ${PRJ_ID})
 set(PROJECT_VERSION_CPP_MIN 17)
 
 # Set project configuration
 ## Generic properties
-project(${PROJECT_NAME} LANGUAGES CXX)
-project(${PROJECT_NAME} VERSION "${PROJECT_VERSION_SEMANTIC}")
+project(${PROJECT_NAME}
+    LANGUAGES       CXX
+    VERSION         "${PRJ_VERSION_SEMANTIC}"
+    DESCRIPTION     ${PRJ_DESCRIPTION}
+    HOMEPAGE_URL    ${PRJ_HOMEPAGE_URL}
+)
 
 ## Qt specific properties
 set(CMAKE_AUTOUIC ON)
@@ -20,7 +32,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
 # Define project options
-option(LIBRARYNAME_BUILD_TESTS "Use to enable/disable build of unit-tests." ON)
+# Example: option(LIBRARYNAME_BUILD_TESTS "Use to enable/disable build of unit-tests." ON)
 
 # Manage global compiler options
 ## For MSVC: force to read source code as UTF-8 file (already default behaviour on GCC/Clang)
@@ -31,8 +43,6 @@ if(DEFINED CMAKE_CXX_STANDARD)
     if(${CMAKE_CXX_STANDARD} LESS ${PROJECT_VERSION_CPP_MIN})
         message(FATAL_ERROR "Project ${PROJECT_NAME} require at least C++ standard ${PROJECT_VERSION_CPP_MIN}")
     endif()
-else()
-    set(CMAKE_CXX_STANDARD ${PROJECT_VERSION_CPP_MIN})
 endif()
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 message(STATUS "Project \"${PROJECT_NAME}\" compiled with C++ standard ${CMAKE_CXX_STANDARD}")
@@ -49,11 +59,15 @@ find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core REQUIRED)
 set(PROJECT_DIR_PUBLIC_HEADERS_ROOT "${PROJECT_SOURCE_DIR}/include")
 set(PROJECT_DIR_PUBLIC_HEADERS      "${PROJECT_DIR_PUBLIC_HEADERS_ROOT}/${PROJECT_NAME}")
 set(PROJECT_DIR_PRIV_SOURCES        "${PROJECT_SOURCE_DIR}/src")
-set(PROJECT_FILE_GLOBAL             "${PROJECT_DIR_PUBLIC_HEADERS}/libraryname_global.h")
+
+set(PROJECT_FILE_GLOBAL             "${PROJECT_DIR_PUBLIC_HEADERS}/library_global.h")
+
+set(PROJECT_FILE_OS_METADATA_WINDOWS "${PROJECT_SOURCE_DIR}/metadata/windows/infos.rc")
 
 # Manage library files
 ## Configure file project - File containing macros that can be used in project
 configure_file("${PROJECT_FILE_GLOBAL}.in" "${PROJECT_FILE_GLOBAL}")
+configure_file("${PROJECT_FILE_OS_METADATA_WINDOWS}.in" "${PROJECT_FILE_OS_METADATA_WINDOWS}")
 
 ## Set library compilation definitions
 set(PROJECT_DEFS_PRIV
@@ -72,6 +86,7 @@ set(PROJECT_LINKING_DIR
 
 ### Linking libs
 set(PROJECT_LINKING_LIB
+    # Example: nlohmann_json::nlohmann_json
     Qt${QT_VERSION_MAJOR}::Core
 )
 
@@ -80,18 +95,19 @@ set(PROJECT_LINKING_LIB
 set(PROJECT_HEADERS_PUBLIC
 
 )
-list(TRANSFORM PROJECT_HEADERS_PUBLIC PREPEND "${PROJECT_DIR_PUBLIC_HEADERS}/")
 
 ### Private
 set(PROJECT_HEADERS_PRIVATE
 
 )
-list(TRANSFORM PROJECT_HEADERS_PRIVATE PREPEND "${PROJECT_DIR_PRIV_SOURCES}/")
 
 set(PROJECT_SOURCES
 
 )
-list(TRANSFORM PROJECT_SOURCES PREPEND "${PROJECT_DIR_PRIV_SOURCES}/")
+
+set(PROJECT_RESSOURCES
+    # No ressources to set
+)
 
 # Manage platform differences
 ## Refer to: https://cmake.org/cmake/help/latest/variable/CMAKE_SYSTEM_NAME.html
@@ -100,13 +116,23 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
         "NOMINMAX"  # Needed because Windows define macros "min/max", better to not defined those and use "std::min/std::max" instead
         "WIN32_LEAN_AND_MEAN=1"
     )
+
+    set(PROJECT_RESSOURCES ${PROJECT_RESSOURCES}
+        ${PROJECT_FILE_OS_METADATA_WINDOWS}
+    )
 endif()
 
 # Manage options
 ## Example: if(LIBRARYNAME_USE_CUSTOM_BEHAVIOUR)
 
+### Prepend all files to proper directory
+list(TRANSFORM PROJECT_HEADERS_PUBLIC PREPEND "${PROJECT_DIR_PUBLIC_HEADERS}/")
+list(TRANSFORM PROJECT_HEADERS_PRIVATE PREPEND "${PROJECT_DIR_PRIV_SOURCES}/")
+list(TRANSFORM PROJECT_SOURCES PREPEND "${PROJECT_DIR_PRIV_SOURCES}/")
+
+set(PROJECT_FILES ${PROJECT_RESSOURCES} ${PROJECT_FILE_GLOBAL} ${PROJECT_HEADERS_PUBLIC} ${PROJECT_HEADERS_PRIVATE} ${PROJECT_SOURCES})
+
 # Add files to the library
-set(PROJECT_FILES ${PROJECT_FILE_GLOBAL} ${PROJECT_HEADERS_PUBLIC} ${PROJECT_HEADERS_PRIVATE} ${PROJECT_SOURCES})
 add_library(${PROJECT_NAME} SHARED ${PROJECT_FILES})
 
 # Set version of library
