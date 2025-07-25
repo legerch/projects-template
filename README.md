@@ -4,6 +4,7 @@ This repository is a project templates example useful when creating C++ _librari
 - [1. Library template](#1-library-template)
   - [1.1. What to set](#11-what-to-set)
   - [1.2. Library helpers](#12-library-helpers)
+- [Application template](#application-template)
 
 # 1. Library template
 
@@ -55,6 +56,23 @@ This is just a template folder, multiple files will have to be adjusted to the l
 Those _helpers_ can also be useful when creating new C++ library:
 - [AbstractLogger][repo-helper-abstract-logger]: Abstract logger implementation example that allow to have a logging behaviour inside of a library without being tied to a specific logging library API, allowing application developpers to use **their** logging behaviour/dependencies.
 - [Doxygen tutorial][tuto-doxygen]
+
+# Application template
+
+//TODO: Create README inside "icons" to track authors + explain structure of the folders
+//TODO: In app section README, add:
+- Link to "icon README" file to explain structure
+- Logo extension example: .png, .ico (windows/linux), .icns (MacOS)
+- For metadata:
+  - set the metadata files here (and inside lib template, link it <or copy but manage dates!> since only Windows have it for libs)
+  - For macos:
+    - Completer infos (seuls windows est complet et testé)
+    - Ajouter clés utiles (nearby wifi)
+    - protocol bonjour
+    - link to offical doc
+- Complete qml
+- Complete appname_global.h.in/main/ressources.qrc (careful in cmakelist)
+- Talk about QLogger
 
 <!-- Links of this reposiory -->
 [template-lib]: library-template/
