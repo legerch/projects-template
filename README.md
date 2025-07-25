@@ -16,7 +16,7 @@ This is just a template folder, multiple files will have to be adjusted to the l
 - Informations files:
   - `README.md`: Complete it with library name and details
   - `CHANGELOG.md`: Set it with library details and provide proper repository links
-  - `LICENSE.md`: An _MIT License_ example is available in it via the file `LICENSE_mit.md`
+  - `LICENSE.md`: An _MIT License_ example is available in it
   - `.gitignore`: Contains minimal files/folder to ignore, should be ready to go.
   - `metadata/`: Contains metadata files that can be used by OSes to determine libraries properties (note that for libraries, only _Windows OS_ have those metadata files)
     - `windows.infos.rc.in`:
