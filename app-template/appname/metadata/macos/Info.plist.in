@@ -26,12 +26,9 @@
 	<string></string>
 
     <key>CFBundleIconFile</key>
-	<string></string>
+	<string>@PRJ_ICON@.icns</string>
 
     <key>NSPrincipalClass</key>
 	<string>NSApplication</string>
-
-    <key>NSLocationUsageDescription</key>
-    <string>Used to scan nearby Wi-Fi networks</string>
 </dict>
 </plist>
