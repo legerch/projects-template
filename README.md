@@ -5,6 +5,7 @@ This repository is a project templates example useful when creating C++ _librari
   - [1.1. What to set](#11-what-to-set)
   - [1.2. Library helpers](#12-library-helpers)
 - [Application template](#application-template)
+  - [What to set](#what-to-set)
 
 # 1. Library template
 
@@ -20,7 +21,7 @@ This is just a template folder, multiple files will have to be adjusted to the l
   - `LICENSE.md`: An _MIT License_ example is available in it
   - `.gitignore`: Contains minimal files/folder to ignore, should be ready to go.
   - `metadata/`: Contains metadata files that can be used by OSes to determine libraries properties (note that for libraries, only _Windows OS_ have those metadata files)
-    - `windows.infos.rc.in`:
+    - `windows/infos.rc.in`:
       - Simply verify that macro `IS_LIBRARY` is set to `1`, all others fields will be generated automatically by _CMake_ in `windows/infos.rc` file.
 - Build files:
   - `CMakelists.txt`: Allow to build the library with **CMake** build system
@@ -59,25 +60,49 @@ Those _helpers_ can also be useful when creating new C++ library:
 
 # Application template
 
-//TODO: Create README inside "icons" to track authors + explain structure of the folders
+Application template is available at [application template][template-app] folder and provide support for _C++ Qt based_ applications.  
+
+## What to set
+
+- Informations files:
+  - `README.md`: Complete it with application name and details
+  - `CHANGELOG.md`: Set it with application details and provide proper repository links
+  - `LICENSE.md`: An _MIT License_ example is available in it
+  - `.gitignore`: Contains minimal files/folder to ignore, should be ready to go.
+- Assets files:
+  - `assets/icons/`: Add all used icons for this application.
+  - `assets/logos/`: Application main logo to use.
+- Metadata files (`metadata/`): Contains metadata files that can be used by OSes to determine application properties
+  - **Windows:** (`windows/infos.rc.in`)
+    - Simply verify that macro `IS_LIBRARY` is set to `0`, all others fields will be generated automatically by _CMake_ in `windows/infos.rc` file.
+    - Add application icon at `.ico` format in `assets/logos/`
+  - **Mac OS:** (`macos/Infos.plist.in`)
+    - All fields should be generated automatically.
+    - Some additional keys can be necessary depending on your application required features, refer to [official documentation][macos-metadata-doc] for more infos. Often used can be:
+      - [NSLocalNetworkUsageDescription][macos-perm-network]
+      - [NSBonjourServices][macos-perm-bonjour]
+      - [NSLocationUsageDescription][macos-perm-location]
+    - Add application icon at `.icns` format in `assets/logos/`
+
+
 //TODO: In app section README, add:
 - Link to "icon README" file to explain structure
-- Logo extension example: .png, .ico (windows/linux), .icns (MacOS)
 - For metadata:
-  - set the metadata files here (and inside lib template, link it <or copy but manage dates!> since only Windows have it for libs)
-  - For macos:
-    - Completer infos (seuls windows est complet et testé)
-    - Ajouter clés utiles (nearby wifi)
-    - protocol bonjour
-    - link to offical doc
+  - Set les chemins des icones directement dans cmakelist
 - Complete qml
 - Complete appname_global.h.in/main/ressources.qrc (careful in cmakelist)
 - Talk about QLogger
 
 <!-- Links of this reposiory -->
+[template-app]: app-template/
 [template-lib]: library-template/
 
 <!-- External links -->
+[macos-metadata-doc]: https://developer.apple.com/documentation/bundleresources/information-property-list?language=objc
+[macos-perm-network]: https://developer.apple.com/documentation/bundleresources/information-property-list/nslocalnetworkusagedescription/
+[macos-perm-bonjour]: https://developer.apple.com/documentation/bundleresources/information-property-list/nsbonjourservices
+[macos-perm-location]: https://developer.apple.com/documentation/bundleresources/information-property-list/nslocationusagedescription?language=objc
+
 [pitchfork-repo]: https://github.com/vector-of-bool/pitchfork
 [pitchfork-web]: https://web.archive.org/web/20231210061404/https://api.csswg.org/bikeshed/?force=1&url=https://raw.githubusercontent.com/vector-of-bool/pitchfork/develop/data/spec.bs
 
