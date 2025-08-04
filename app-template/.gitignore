@@ -1,0 +1,15 @@
+# OS files
+.DS_Store
+
+# IDE Configuration
+.vscode/
+*.user
+*.code-workspace
+
+# Binaries
+build/
+
+# Auto generated files
+appname_global.h
+metadata/macos/Info.plist
+metadata/windows/infos.rc
