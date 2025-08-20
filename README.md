@@ -4,8 +4,9 @@ This repository is a project templates example useful when creating C++ _librari
 - [1. Library template](#1-library-template)
   - [1.1. What to set](#11-what-to-set)
   - [1.2. Library helpers](#12-library-helpers)
-- [Application template](#application-template)
-  - [What to set](#what-to-set)
+- [2. Application template](#2-application-template)
+  - [2.1. What to set](#21-what-to-set)
+  - [2.2. Application helpers](#22-application-helpers)
 
 # 1. Library template
 
@@ -58,18 +59,18 @@ Those _helpers_ can also be useful when creating new C++ library:
 - [AbstractLogger][repo-helper-abstract-logger]: Abstract logger implementation example that allow to have a logging behaviour inside of a library without being tied to a specific logging library API, allowing application developpers to use **their** logging behaviour/dependencies.
 - [Doxygen tutorial][tuto-doxygen]
 
-# Application template
+# 2. Application template
 
 Application template is available at [application template][template-app] folder and provide support for _C++ Qt based_ applications.  
 
-## What to set
+## 2.1. What to set
 
 - Informations files:
   - `README.md`: Complete it with application name and details
   - `CHANGELOG.md`: Set it with application details and provide proper repository links
   - `LICENSE.md`: An _MIT License_ example is available in it
   - `.gitignore`: Contains minimal files/folder to ignore, should be ready to go.
-- Assets files:
+- Assets files (in folder [`assets/`][app-assets]):
   - `assets/icons/`: Add all used icons for this application.
   - `assets/logos/`: Application main logo to use.
   - `ressources.qrc`: This file will contains all assets ressources needed by the application
@@ -97,13 +98,18 @@ Application template is available at [application template][template-app] folder
   - `main.cpp`:
     - This file contains code for a **Qt Widget** and a **Qt QML** based application, choose the one to use and remove unnecessary (if _QML_ isn't use, remember to disable option `APPNAME_USE_QML` in the **CMake** file).
 
-//TODO: In app section README, add:
-- Link to "icon README" file to explain structure
-- Talk about QLogger
+## 2.2. Application helpers
+
+Those _helpers_ can also be useful when creating new Qt/C++ application:
+- [QLogger][repo-qlogger]: QLogger is made to be compatible with Qt framework logs management, this library provide an easy (and thread-safe) way to use multiple sinks behaviour.
+- [ToolBoxQt][repo-toolboxqt]: Custom toolbox containing multiple classes that can be useful when using Qt framework
+- [Qt tutorial][tuto-qt]
 
 <!-- Links of this reposiory -->
 [template-app]: app-template/
 [template-lib]: library-template/
+
+[app-assets]: app-template/appname/assets/
 
 <!-- External links -->
 [macos-metadata-doc]: https://developer.apple.com/documentation/bundleresources/information-property-list?language=objc
@@ -119,5 +125,8 @@ Application template is available at [application template][template-app] folder
 [repo-doxy-theme-awesome]: https://github.com/jothepro/doxygen-awesome-css
 [repo-gtest]: https://github.com/google/googletest
 [repo-helper-abstract-logger]: https://github.com/legerch/AbstractLogger
+[repo-qlogger]: https://github.com/legerch/QLogger
+[repo-toolboxqt]: https://github.com/legerch/ToolBoxQt
 
 [tuto-doxygen]: https://github.com/legerch/develop-memo/tree/master/Documentation
+[tuto-qt]: https://github.com/legerch/develop-memo/tree/master/Qt
