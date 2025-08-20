@@ -87,7 +87,9 @@ Application template is available at [application template][template-app] folder
 - Build files:
   - `CMakelists.txt`: Allow to build the application with **CMake** build system
     - Set project properties/informations
-    - If not using _Qt framework_, simply remove all _Qt_ related lines
+    - Specific to _Qt framework_:
+      - If not using it, simply remove all _Qt_ related lines
+      - QML support is also set, remove it if not using QML files
     - Set files and dependencies to use
 
 //TODO: In app section README, add:
@@ -95,7 +97,6 @@ Application template is available at [application template][template-app] folder
 - Complete qml
 - Complete appname_global.h.in/main (careful in cmakelist)
 - Talk about QLogger
-- Simplify Qt packages declarations
 
 <!-- Links of this reposiory -->
 [template-app]: app-template/

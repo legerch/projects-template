@@ -51,8 +51,14 @@ message(STATUS "Project \"${PROJECT_NAME}\" compiled with C++ standard ${CMAKE_C
 
 # Set needed packages
 ## Qt packages
-find_package(QT NAMES Qt6 Qt5 COMPONENTS Core REQUIRED)
-find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core REQUIRED)
+set(PROJECT_QT_PACKAGES
+    Core
+)
+
+find_package(QT NAMES Qt6 Qt5 COMPONENTS ${PROJECT_QT_PACKAGES} REQUIRED)
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS ${PROJECT_QT_PACKAGES} REQUIRED)
+
+list(TRANSFORM PROJECT_QT_PACKAGES PREPEND "Qt${QT_VERSION_MAJOR}::")
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_standard_project_setup(REQUIRES 6.8)
@@ -98,8 +104,8 @@ set(PROJECT_LINKING_DIR
 
 ### Linking libs
 set(PROJECT_LINKING_LIB
+    ${PROJECT_QT_PACKAGES}
     # Example: nlohmann_json::nlohmann_json
-    Qt${QT_VERSION_MAJOR}::Core
 )
 
 ## Set application files
