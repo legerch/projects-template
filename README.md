@@ -72,6 +72,7 @@ Application template is available at [application template][template-app] folder
 - Assets files:
   - `assets/icons/`: Add all used icons for this application.
   - `assets/logos/`: Application main logo to use.
+  - `ressources.qrc`: This file will contains all assets ressources needed by the application
 - Metadata files (`metadata/`): Contains metadata files that can be used by OSes to determine application properties
   - **Windows:** (`windows/infos.rc.in`)
     - Simply verify that macro `IS_LIBRARY` is set to `0`, all others fields will be generated automatically by _CMake_ in `windows/infos.rc` file.
@@ -83,7 +84,11 @@ Application template is available at [application template][template-app] folder
       - [NSBonjourServices][macos-perm-bonjour]
       - [NSLocationUsageDescription][macos-perm-location]
     - Add application icon at `.icns` format in `assets/logos/`
-
+- Build files:
+  - `CMakelists.txt`: Allow to build the application with **CMake** build system
+    - Set project properties/informations
+    - If not using _Qt framework_, simply remove all _Qt_ related lines
+    - Set files and dependencies to use
 
 //TODO: In app section README, add:
 - Link to "icon README" file to explain structure
@@ -92,6 +97,7 @@ Application template is available at [application template][template-app] folder
 - Complete qml
 - Complete appname_global.h.in/main/ressources.qrc (careful in cmakelist)
 - Talk about QLogger
+//TODO: simplify Qt packages declarations
 
 <!-- Links of this reposiory -->
 [template-app]: app-template/
