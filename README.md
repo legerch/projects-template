@@ -89,13 +89,16 @@ Application template is available at [application template][template-app] folder
     - Set project properties/informations
     - Specific to _Qt framework_:
       - If not using it, simply remove all _Qt_ related lines
-      - QML support is also set, remove it if not using QML files
+      - QML support is also set, disable it via option `APPNAME_USE_QML` if not using QML files
     - Set files and dependencies to use
+- Application files:
+  - `base/appname_global.h.in`: Contains common application macros (version, name, abstract compiler differences, etc...)
+    - Choose the version for _C++ native_ or _C++ Qt based_ and rename it to `appname_global.h.in`. The final header `appname_global.h` will be generated automatically by **CMake** buildsystem.
+  - `main.cpp`:
+    - This file contains code for a **Qt Widget** and a **Qt QML** based application, choose the one to use and remove unnecessary (if _QML_ isn't use, remember to disable option `APPNAME_USE_QML` in the **CMake** file).
 
 //TODO: In app section README, add:
 - Link to "icon README" file to explain structure
-- Complete qml
-- Complete appname_global.h.in/main (careful in cmakelist)
 - Talk about QLogger
 
 <!-- Links of this reposiory -->

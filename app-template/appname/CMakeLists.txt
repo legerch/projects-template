@@ -35,6 +35,7 @@ set(CMAKE_AUTORCC ON)
 
 # Define project options
 # Example: option(APPNAME_BUILD_TESTS "Use to enable/disable build of unit-tests." ON)
+option(APPNAME_USE_QML "Enable to use QML instead of Widgets." OFF)
 
 # Manage global compiler options
 ## For MSVC: force to read source code as UTF-8 file (already default behaviour on GCC/Clang)
@@ -130,10 +131,16 @@ set(PROJECT_UI_QML
 )
 
 ### Manage QML files according to Qt version
-if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
-    list(TRANSFORM PROJECT_UI_QML PREPEND "ui/qml/qt6/")
-else()
-    set(PROJECT_RESSOURCES ${PROJECT_RESSOURCES} ui/qml/qt5/qml.qrc)
+if(APPNAME_USE_QML)
+    set(PROJECT_DEFS_PRIV ${PROJECT_DEFS_PRIV}
+        APPNAME_USE_QML
+    )
+
+    if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
+        list(TRANSFORM PROJECT_UI_QML PREPEND "ui/qml/qt6/")
+    else()
+        set(PROJECT_RESSOURCES ${PROJECT_RESSOURCES} ui/qml/qt5/qml.qrc)
+    endif()
 endif()
 
 # Manage platform differences
@@ -158,11 +165,14 @@ set(PROJECT_FILES ${PROJECT_HEADERS} ${PROJECT_SOURCES} ${PROJECT_UI_WIDGETS} ${
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(${PROJECT_NAME} ${PROJECT_FILES})
 
-    qt_add_qml_module(${PROJECT_NAME}
-        URI         ${PROJECT_NAME}
-        VERSION     1.0
-        QML_FILES   ${PROJECT_UI_QML}
-    )
+    if(APPNAME_USE_QML)
+        qt_add_qml_module(${PROJECT_NAME}
+            URI         ${PROJECT_NAME}
+            VERSION     1.0
+            QML_FILES   ${PROJECT_UI_QML}
+        )
+    endif()
+    
 else()
     add_executable(${PROJECT_NAME} ${PROJECT_FILES})
 endif()
