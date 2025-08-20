@@ -6,19 +6,21 @@ cmake_minimum_required(VERSION 3.20)
 # Set project properties
 set(PRJ_COMPANY_ID          mycompanyid)
 set(PRJ_COMPANY_NAME        "My Company")
-set(PRJ_ID                  mylibraryid)
-set(PRJ_READABLE_NAME       "My Great Library")
+set(PRJ_ID                  myappid)
+set(PRJ_READABLE_NAME       "My Great App")
 set(PRJ_VERSION_SEMANTIC    0.0.1)
-set(PRJ_DESCRIPTION         "Short description of what my library do.")
+set(PRJ_DESCRIPTION         "Short description of what my application do.")
 set(PRJ_LICENSE             "MIT")
 set(PRJ_COPYRIGHT           "Copyright (c) 2025 ${PRJ_COMPANY_NAME} (${PRJ_LICENSE} License)")
 set(PRJ_HOMEPAGE_URL        "https://github.com/")
+set(PRJ_ICON_NAME           "myiconname")
 
 set(PROJECT_NAME ${PRJ_ID})
 set(PROJECT_VERSION_CPP_MIN 17)
 
 # Set project configuration
 ## Generic properties
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
 project(${PROJECT_NAME}
     LANGUAGES       CXX
     VERSION         "${PRJ_VERSION_SEMANTIC}"
@@ -32,7 +34,8 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
 # Define project options
-# Example: option(LIBRARYNAME_BUILD_TESTS "Use to enable/disable build of unit-tests." ON)
+# Example: option(APPNAME_BUILD_TESTS "Use to enable/disable build of unit-tests." ON)
+option(APPNAME_USE_QML "Enable to use QML instead of Widgets." OFF)
 
 # Manage global compiler options
 ## For MSVC: force to read source code as UTF-8 file (already default behaviour on GCC/Clang)
@@ -58,26 +61,36 @@ find_package(Qt${QT_VERSION_MAJOR} COMPONENTS ${PROJECT_QT_PACKAGES} REQUIRED)
 
 list(TRANSFORM PROJECT_QT_PACKAGES PREPEND "Qt${QT_VERSION_MAJOR}::")
 
+if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
+    qt_standard_project_setup(REQUIRES 6.8)
+endif()
+
 ## Other library packages
 ### Example: find_package(nlohmann_json 3.11.3 REQUIRED)
 
 # Defines useful path variables for easier CMake configuration
-set(PROJECT_DIR_PUBLIC_HEADERS_ROOT "${PROJECT_SOURCE_DIR}/include")
-set(PROJECT_DIR_PUBLIC_HEADERS      "${PROJECT_DIR_PUBLIC_HEADERS_ROOT}/${PROJECT_NAME}")
-set(PROJECT_DIR_PRIV_SOURCES        "${PROJECT_SOURCE_DIR}/src")
+set(PROJECT_DIR_ROOT                    "${PROJECT_SOURCE_DIR}")
+set(PROJECT_DIR_BASE                    "${PROJECT_DIR_ROOT}/base")
+set(PROJECT_DIR_META                    "${PROJECT_DIR_ROOT}/metadata")
+set(PROJECT_DIR_LOGO                    "${PROJECT_DIR_ROOT}/assets/logo")
 
-set(PROJECT_FILE_GLOBAL             "${PROJECT_DIR_PUBLIC_HEADERS}/library_global.h")
+set(PROJECT_FILE_GLOBAL                 "${PROJECT_DIR_BASE}/appname_global.h")
 
-set(PROJECT_FILE_OS_METADATA_WINDOWS "${PROJECT_SOURCE_DIR}/metadata/windows/infos.rc")
+set(PROJECT_FILE_OS_METADATA_WINDOWS    "${PROJECT_DIR_META}/windows/infos.rc")
+set(PROJECT_FILE_OS_METADATA_MACOS      "${PROJECT_DIR_META}/macos/Info.plist")
 
-# Manage library files
+set(PRJ_ICON                            "${PROJECT_DIR_LOGO}/${PRJ_ICON_NAME}")
+
+# Manage application files
 ## Configure file project - File containing macros that can be used in project
-configure_file("${PROJECT_FILE_GLOBAL}.in" "${PROJECT_FILE_GLOBAL}")
 configure_file("${PROJECT_FILE_OS_METADATA_WINDOWS}.in" "${PROJECT_FILE_OS_METADATA_WINDOWS}")
+configure_file("${PROJECT_FILE_OS_METADATA_MACOS}.in" "${PROJECT_FILE_OS_METADATA_MACOS}")
 
-## Set library compilation definitions
+configure_file("${PROJECT_FILE_GLOBAL}.in" "${PROJECT_FILE_GLOBAL}")
+
+## Set application compilation definitions
 set(PROJECT_DEFS_PRIV
-    "LIBRARYNAME_LIBRARY_BUILD"
+    "QT_MESSAGELOGCONTEXT"
 )
 
 set(PROJECT_DEFS_PUB
@@ -96,24 +109,39 @@ set(PROJECT_LINKING_LIB
     # Example: nlohmann_json::nlohmann_json
 )
 
-## Set library files
-### Public interface
-set(PROJECT_HEADERS_PUBLIC
-
-)
-
-### Private
-set(PROJECT_HEADERS_PRIVATE
+## Set application files
+set(PROJECT_HEADERS
 
 )
 
 set(PROJECT_SOURCES
+    main.cpp
+)
+
+set(PROJECT_UI_WIDGETS
 
 )
 
 set(PROJECT_RESSOURCES
-    # No ressources to set
+    ressources.qrc
 )
+
+set(PROJECT_UI_QML
+
+)
+
+### Manage QML files according to Qt version
+if(APPNAME_USE_QML)
+    set(PROJECT_DEFS_PRIV ${PROJECT_DEFS_PRIV}
+        APPNAME_USE_QML
+    )
+
+    if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
+        list(TRANSFORM PROJECT_UI_QML PREPEND "ui/qml/qt6/")
+    else()
+        set(PROJECT_RESSOURCES ${PROJECT_RESSOURCES} ui/qml/qt5/qml.qrc)
+    endif()
+endif()
 
 # Manage platform differences
 ## Refer to: https://cmake.org/cmake/help/latest/variable/CMAKE_SYSTEM_NAME.html
@@ -129,22 +157,25 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
 endif()
 
 # Manage options
-## Example: if(LIBRARYNAME_USE_CUSTOM_BEHAVIOUR)
+## Example: if(APPNAME_USE_CUSTOM_BEHAVIOUR)
 
-### Prepend all files to proper directory
-list(TRANSFORM PROJECT_HEADERS_PUBLIC PREPEND "${PROJECT_DIR_PUBLIC_HEADERS}/")
-list(TRANSFORM PROJECT_HEADERS_PRIVATE PREPEND "${PROJECT_DIR_PRIV_SOURCES}/")
-list(TRANSFORM PROJECT_SOURCES PREPEND "${PROJECT_DIR_PRIV_SOURCES}/")
+# Add files to the application
+set(PROJECT_FILES ${PROJECT_HEADERS} ${PROJECT_SOURCES} ${PROJECT_UI_WIDGETS} ${PROJECT_RESSOURCES})
 
-set(PROJECT_FILES ${PROJECT_RESSOURCES} ${PROJECT_FILE_GLOBAL} ${PROJECT_HEADERS_PUBLIC} ${PROJECT_HEADERS_PRIVATE} ${PROJECT_SOURCES})
+if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
+    qt_add_executable(${PROJECT_NAME} ${PROJECT_FILES})
 
-# Add files to the library
-add_library(${PROJECT_NAME} SHARED ${PROJECT_FILES})
-
-# Set version of library
-set_target_properties(${PROJECT_NAME} PROPERTIES
-                        VERSION ${PROJECT_VERSION}
-                        SOVERSION ${PROJECT_VERSION_MAJOR})
+    if(APPNAME_USE_QML)
+        qt_add_qml_module(${PROJECT_NAME}
+            URI         ${PROJECT_NAME}
+            VERSION     1.0
+            QML_FILES   ${PROJECT_UI_QML}
+        )
+    endif()
+    
+else()
+    add_executable(${PROJECT_NAME} ${PROJECT_FILES})
+endif()
 
 # Link needed libraries
 target_link_directories(${PROJECT_NAME} PUBLIC ${PROJECT_LINKING_DIR})
@@ -158,19 +189,15 @@ target_compile_options(${PROJECT_NAME} PRIVATE
 )
 
 # Compile needed definitions
-## Library related
+## Application related
 target_compile_definitions(${PROJECT_NAME} PUBLIC ${PROJECT_DEFS_PUB})
 target_compile_definitions(${PROJECT_NAME} PRIVATE ${PROJECT_DEFS_PRIV})
 
-# Specify include directories
-target_include_directories(${PROJECT_NAME}
-    PUBLIC
-        ${PROJECT_DIR_PUBLIC_HEADERS_ROOT}  # Only expose public headers
-    PRIVATE
-        ${PROJECT_DIR_PRIV_SOURCES}         # Internal headers, only for internal use
+# Set properties of application
+set_target_properties(${PROJECT_NAME} PROPERTIES
+    VERSION                     ${PROJECT_VERSION}
+    SOVERSION                   ${PROJECT_VERSION_MAJOR}
+    MACOSX_BUNDLE               TRUE
+    MACOSX_BUNDLE_INFO_PLIST    ${PROJECT_FILE_OS_METADATA_MACOS}
+    WIN32_EXECUTABLE            TRUE
 )
-
-# Do we need to build tests ?
-if(LIBRARYNAME_BUILD_TESTS)
-    add_subdirectory(tests)
-endif()

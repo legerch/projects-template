@@ -1,4 +1,4 @@
-[LibraryName][repo-home] is a <native/Qt> library allowing to <brief description>.
+[LibraryName][repo-home] is a \<native/Qt> library allowing to \<brief description>.
 
 > [!TIP]
 > Latest development/pull requests will be committed into `main` branch.  
@@ -133,7 +133,7 @@ doxygen ./docs/fragments/Doxyfile-name
 
 # 6. License
 
-This library is licensed under [MIT license][repo-license].
+This library is licensed under [MIT license][repo-license-url].
 
 <!-- Anchor of this page -->
 [anchor-platforms]: #12-supported-platforms
@@ -143,6 +143,7 @@ This library is licensed under [MIT license][repo-license].
 [repo-home]: https://github.com/username/projectname
 [repo-doc-web]: https://username.github.io/projectname/
 [repo-license]: LICENSE
+[repo-license-url]: https://username.github.io/projectname/LICENSE
 
 <!-- External links -->
 [doxygen-official]: https://www.doxygen.nl/index.html

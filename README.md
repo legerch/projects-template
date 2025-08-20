@@ -4,6 +4,9 @@ This repository is a project templates example useful when creating C++ _librari
 - [1. Library template](#1-library-template)
   - [1.1. What to set](#11-what-to-set)
   - [1.2. Library helpers](#12-library-helpers)
+- [2. Application template](#2-application-template)
+  - [2.1. What to set](#21-what-to-set)
+  - [2.2. Application helpers](#22-application-helpers)
 
 # 1. Library template
 
@@ -16,10 +19,10 @@ This is just a template folder, multiple files will have to be adjusted to the l
 - Informations files:
   - `README.md`: Complete it with library name and details
   - `CHANGELOG.md`: Set it with library details and provide proper repository links
-  - `LICENSE.md`: An _MIT License_ example is available in it via the file `LICENSE_mit.md`
+  - `LICENSE.md`: An _MIT License_ example is available in it
   - `.gitignore`: Contains minimal files/folder to ignore, should be ready to go.
   - `metadata/`: Contains metadata files that can be used by OSes to determine libraries properties (note that for libraries, only _Windows OS_ have those metadata files)
-    - `windows.infos.rc.in`:
+    - `windows/infos.rc.in`:
       - Simply verify that macro `IS_LIBRARY` is set to `1`, all others fields will be generated automatically by _CMake_ in `windows/infos.rc` file.
 - Build files:
   - `CMakelists.txt`: Allow to build the library with **CMake** build system
@@ -56,10 +59,64 @@ Those _helpers_ can also be useful when creating new C++ library:
 - [AbstractLogger][repo-helper-abstract-logger]: Abstract logger implementation example that allow to have a logging behaviour inside of a library without being tied to a specific logging library API, allowing application developpers to use **their** logging behaviour/dependencies.
 - [Doxygen tutorial][tuto-doxygen]
 
+# 2. Application template
+
+Application template is available at [application template][template-app] folder and provide support for _C++ Qt based_ applications.  
+
+## 2.1. What to set
+
+- Informations files:
+  - `README.md`: Complete it with application name and details
+  - `CHANGELOG.md`: Set it with application details and provide proper repository links
+  - `LICENSE.md`: An _MIT License_ example is available in it
+  - `.gitignore`: Contains minimal files/folder to ignore, should be ready to go.
+- Assets files (in folder [`assets/`][app-assets]):
+  - `assets/icons/`: Add all used icons for this application.
+  - `assets/logos/`: Application main logo to use.
+  - `ressources.qrc`: This file will contains all assets ressources needed by the application
+- Metadata files (`metadata/`): Contains metadata files that can be used by OSes to determine application properties
+  - **Windows:** (`windows/infos.rc.in`)
+    - Simply verify that macro `IS_LIBRARY` is set to `0`, all others fields will be generated automatically by _CMake_ in `windows/infos.rc` file.
+    - Add application icon at `.ico` format in `assets/logos/`
+  - **Mac OS:** (`macos/Infos.plist.in`)
+    - All fields should be generated automatically.
+    - Some additional keys can be necessary depending on your application required features, refer to [official documentation][macos-metadata-doc] for more infos. Often used can be:
+      - [NSLocalNetworkUsageDescription][macos-perm-network]
+      - [NSBonjourServices][macos-perm-bonjour]
+      - [NSLocationUsageDescription][macos-perm-location]
+    - Add application icon at `.icns` format in `assets/logos/`
+- Build files:
+  - `CMakelists.txt`: Allow to build the application with **CMake** build system
+    - Set project properties/informations
+    - Specific to _Qt framework_:
+      - If not using it, simply remove all _Qt_ related lines
+      - QML support is also set, disable it via option `APPNAME_USE_QML` if not using QML files
+    - Set files and dependencies to use
+- Application files:
+  - `base/appname_global.h.in`: Contains common application macros (version, name, abstract compiler differences, etc...)
+    - Choose the version for _C++ native_ or _C++ Qt based_ and rename it to `appname_global.h.in`. The final header `appname_global.h` will be generated automatically by **CMake** buildsystem.
+  - `main.cpp`:
+    - This file contains code for a **Qt Widget** and a **Qt QML** based application, choose the one to use and remove unnecessary (if _QML_ isn't use, remember to disable option `APPNAME_USE_QML` in the **CMake** file).
+
+## 2.2. Application helpers
+
+Those _helpers_ can also be useful when creating new Qt/C++ application:
+- [QLogger][repo-qlogger]: QLogger is made to be compatible with Qt framework logs management, this library provide an easy (and thread-safe) way to use multiple sinks behaviour.
+- [ToolBoxQt][repo-toolboxqt]: Custom toolbox containing multiple classes that can be useful when using Qt framework
+- [Qt tutorial][tuto-qt]
+
 <!-- Links of this reposiory -->
+[template-app]: app-template/
 [template-lib]: library-template/
 
+[app-assets]: app-template/appname/assets/
+
 <!-- External links -->
+[macos-metadata-doc]: https://developer.apple.com/documentation/bundleresources/information-property-list?language=objc
+[macos-perm-network]: https://developer.apple.com/documentation/bundleresources/information-property-list/nslocalnetworkusagedescription/
+[macos-perm-bonjour]: https://developer.apple.com/documentation/bundleresources/information-property-list/nsbonjourservices
+[macos-perm-location]: https://developer.apple.com/documentation/bundleresources/information-property-list/nslocationusagedescription?language=objc
+
 [pitchfork-repo]: https://github.com/vector-of-bool/pitchfork
 [pitchfork-web]: https://web.archive.org/web/20231210061404/https://api.csswg.org/bikeshed/?force=1&url=https://raw.githubusercontent.com/vector-of-bool/pitchfork/develop/data/spec.bs
 
@@ -68,5 +125,8 @@ Those _helpers_ can also be useful when creating new C++ library:
 [repo-doxy-theme-awesome]: https://github.com/jothepro/doxygen-awesome-css
 [repo-gtest]: https://github.com/google/googletest
 [repo-helper-abstract-logger]: https://github.com/legerch/AbstractLogger
+[repo-qlogger]: https://github.com/legerch/QLogger
+[repo-toolboxqt]: https://github.com/legerch/ToolBoxQt
 
 [tuto-doxygen]: https://github.com/legerch/develop-memo/tree/master/Documentation
+[tuto-qt]: https://github.com/legerch/develop-memo/tree/master/Qt
