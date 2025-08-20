@@ -92,12 +92,10 @@ Application template is available at [application template][template-app] folder
 
 //TODO: In app section README, add:
 - Link to "icon README" file to explain structure
-- For metadata:
-  - Set les chemins des icones directement dans cmakelist
 - Complete qml
-- Complete appname_global.h.in/main/ressources.qrc (careful in cmakelist)
+- Complete appname_global.h.in/main (careful in cmakelist)
 - Talk about QLogger
-//TODO: simplify Qt packages declarations
+- Simplify Qt packages declarations
 
 <!-- Links of this reposiory -->
 [template-app]: app-template/

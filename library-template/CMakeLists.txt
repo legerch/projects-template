@@ -1,18 +1,18 @@
 # CMakeLists file based on project template repository: https://github.com/legerch/projects-template
-## Template file version: 2025-07-24 
+## Template file version: 2025-08-20
 
 cmake_minimum_required(VERSION 3.20)
 
 # Set project properties
-set(PRJ_COMPANY_ID mycompanyid)
-set(PRJ_COMPANY_NAME "My Company")
-set(PRJ_ID mylibraryid)
-set(PRJ_READABLE_NAME "My Great Library")
-set(PRJ_VERSION_SEMANTIC 0.0.1)
-set(PRJ_DESCRIPTION "Short description of what my library do.")
-set(PRJ_LICENSE "MIT")
-set(PRJ_COPYRIGHT "Copyright (c) 2025 ${PRJ_COMPANY_NAME} (${PRJ_LICENSE} License)")
-set(PRJ_HOMEPAGE_URL "https://github.com/")
+set(PRJ_COMPANY_ID          mycompanyid)
+set(PRJ_COMPANY_NAME        "My Company")
+set(PRJ_ID                  mylibraryid)
+set(PRJ_READABLE_NAME       "My Great Library")
+set(PRJ_VERSION_SEMANTIC    0.0.1)
+set(PRJ_DESCRIPTION         "Short description of what my library do.")
+set(PRJ_LICENSE             "MIT")
+set(PRJ_COPYRIGHT           "Copyright (c) 2025 ${PRJ_COMPANY_NAME} (${PRJ_LICENSE} License)")
+set(PRJ_HOMEPAGE_URL        "https://github.com/")
 
 set(PROJECT_NAME ${PRJ_ID})
 set(PROJECT_VERSION_CPP_MIN 17)

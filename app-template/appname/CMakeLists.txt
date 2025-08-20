@@ -4,15 +4,16 @@
 cmake_minimum_required(VERSION 3.20)
 
 # Set project properties
-set(PRJ_COMPANY_ID mycompanyid)
-set(PRJ_COMPANY_NAME "My Company")
-set(PRJ_ID mylibraryid)
-set(PRJ_READABLE_NAME "My Great Library")
-set(PRJ_VERSION_SEMANTIC 0.0.1)
-set(PRJ_DESCRIPTION "Short description of what my library do.")
-set(PRJ_LICENSE "MIT")
-set(PRJ_COPYRIGHT "Copyright (c) 2025 ${PRJ_COMPANY_NAME} (${PRJ_LICENSE} License)")
-set(PRJ_HOMEPAGE_URL "https://github.com/")
+set(PRJ_COMPANY_ID          mycompanyid)
+set(PRJ_COMPANY_NAME        "My Company")
+set(PRJ_ID                  myappid)
+set(PRJ_READABLE_NAME       "My Great App")
+set(PRJ_VERSION_SEMANTIC    0.0.1)
+set(PRJ_DESCRIPTION         "Short description of what my application do.")
+set(PRJ_LICENSE             "MIT")
+set(PRJ_COPYRIGHT           "Copyright (c) 2025 ${PRJ_COMPANY_NAME} (${PRJ_LICENSE} License)")
+set(PRJ_HOMEPAGE_URL        "https://github.com/")
+set(PRJ_ICON_NAME           "myiconname")
 
 set(PROJECT_NAME ${PRJ_ID})
 set(PROJECT_VERSION_CPP_MIN 17)
@@ -64,11 +65,14 @@ endif()
 set(PROJECT_DIR_ROOT                    "${PROJECT_SOURCE_DIR}")
 set(PROJECT_DIR_BASE                    "${PROJECT_DIR_ROOT}/base")
 set(PROJECT_DIR_META                    "${PROJECT_DIR_ROOT}/metadata")
+set(PROJECT_DIR_LOGO                    "${PROJECT_DIR_ROOT}/assets/logo")
 
 set(PROJECT_FILE_GLOBAL                 "${PROJECT_DIR_BASE}/appname_global.h")
 
 set(PROJECT_FILE_OS_METADATA_WINDOWS    "${PROJECT_DIR_META}/windows/infos.rc")
 set(PROJECT_FILE_OS_METADATA_MACOS      "${PROJECT_DIR_META}/macos/Info.plist")
+
+set(PRJ_ICON                            "${PROJECT_DIR_LOGO}/${PRJ_ICON_NAME}")
 
 # Manage application files
 ## Configure file project - File containing macros that can be used in project
