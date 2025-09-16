@@ -142,8 +142,8 @@ This library is licensed under [MIT license][repo-license-url].
 <!-- Links of this repository -->
 [repo-home]: https://github.com/username/projectname
 [repo-doc-web]: https://username.github.io/projectname/
-[repo-license]: LICENSE
-[repo-license-url]: https://username.github.io/projectname/LICENSE
+[repo-license]: LICENSE.md
+[repo-license-url]: https://github.com/username/projectname/LICENSE.md
 
 <!-- External links -->
 [doxygen-official]: https://www.doxygen.nl/index.html
