@@ -1,5 +1,5 @@
 # CMakeLists file based on project template repository: https://github.com/legerch/projects-template
-## Template file version: 2025-08-20
+## Template file version: 2025-09-18
 
 cmake_minimum_required(VERSION 3.20)
 
@@ -53,11 +53,6 @@ set(PROJECT_QT_PACKAGES
     Core
 )
 
-find_package(QT NAMES Qt6 Qt5 COMPONENTS ${PROJECT_QT_PACKAGES} REQUIRED)
-find_package(Qt${QT_VERSION_MAJOR} COMPONENTS ${PROJECT_QT_PACKAGES} REQUIRED)
-
-list(TRANSFORM PROJECT_QT_PACKAGES PREPEND "Qt${QT_VERSION_MAJOR}::")
-
 ## Other library packages
 ### Example: find_package(nlohmann_json 3.11.3 REQUIRED)
 
@@ -92,7 +87,6 @@ set(PROJECT_LINKING_DIR
 
 ### Linking libs
 set(PROJECT_LINKING_LIB
-    ${PROJECT_QT_PACKAGES}
     # Example: nlohmann_json::nlohmann_json
 )
 
@@ -127,6 +121,13 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
         ${PROJECT_FILE_OS_METADATA_WINDOWS}
     )
 endif()
+
+# Finalize Qt packages managements
+find_package(QT NAMES Qt6 Qt5 COMPONENTS ${PROJECT_QT_PACKAGES} REQUIRED)
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS ${PROJECT_QT_PACKAGES} REQUIRED)
+
+list(TRANSFORM PROJECT_QT_PACKAGES PREPEND "Qt${QT_VERSION_MAJOR}::")
+set(PROJECT_LINKING_LIB ${PROJECT_LINKING_LIB} ${PROJECT_QT_PACKAGES})
 
 # Manage options
 ## Example: if(LIBRARYNAME_USE_CUSTOM_BEHAVIOUR)
