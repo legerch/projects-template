@@ -1,6 +1,3 @@
-#include "config.h"
-#include "projectaliases.h"
-
 #if APPNAME_USE_QML
 #   include <QQmlApplicationEngine>
 #   include <QQmlContext>
@@ -37,7 +34,31 @@ int main(int argc, char *argv[])
     /* Choose between QML or widget app */
 #if APPNAME_USE_QML
     QGuiApplication app(argc, argv);
+#else
+    QApplication app(argc, argv);
+#endif
 
+    /* Set application properties */
+    app.setWindowIcon(QIcon(":/logo/main"));
+    app.setApplicationName(APPNAME_INFO_NAME);
+    app.setApplicationVersion(APPNAME_VERSION_STR);
+    app.addLibraryPath(":/plugins/imageformats");
+
+    /* Manage theme */
+    // Set ressources theme path
+    QStringList themePathsList = QIcon::themeSearchPaths();
+    themePathsList << ":/assets/icons";
+    QIcon::setThemeSearchPaths(themePathsList);
+    QIcon::setFallbackThemeName(QIcon::themeName());
+
+    // Force theme to light (since dark is not supported on our app)
+#if QT_VERSION >= QT_VERSION_CHECK(6, 8, 0)
+    app.styleHints()->setColorScheme(Qt::ColorScheme::Light);
+#endif
+    QIcon::setThemeName("light");
+
+    /* Load application */
+#if APPNAME_USE_QML
     /* Load engine */
     QQmlApplicationEngine engine;
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
@@ -61,30 +82,9 @@ int main(int argc, char *argv[])
 #endif
 
 #else
-    QApplication app(argc, argv);
-
     MainWindow window;
     window.show();
 #endif
-
-    /* Set application properties */
-    app.setWindowIcon(QIcon(":/logo/main"));
-    app.setApplicationName(APPNAME_INFO_NAME);
-    app.setApplicationVersion(APPNAME_VERSION_STR);
-    app.addLibraryPath(":/plugins/imageformats");
-
-    /* Manage theme */
-    // Set ressources theme path
-    QStringList themePathsList = QIcon::themeSearchPaths();
-    themePathsList << ":/assets/icons";
-    QIcon::setThemeSearchPaths(themePathsList);
-    QIcon::setFallbackThemeName(QIcon::themeName());
-
-    // Force theme to light (since dark is not supported on our app)
-#if QT_VERSION >= QT_VERSION_CHECK(6, 8, 0)
-    app.styleHints()->setColorScheme(Qt::ColorScheme::Light);
-#endif
-    QIcon::setThemeName("light");
 
     /* Start the application */
     return app.exec();
