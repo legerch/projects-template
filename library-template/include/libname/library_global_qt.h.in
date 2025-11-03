@@ -124,6 +124,11 @@
 #   define LIBRARYNAME_QTCOMPAT_STR_VIEW QAnyStringView
 #endif
 
+/**********************************
+ * Helpers
+ *********************************/
+#define LIBRARYNAME_E2I(enumValue)  (static_cast<int>(enumValue))
+
 /*!
  * \endcond
  */

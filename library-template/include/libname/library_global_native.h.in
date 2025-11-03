@@ -121,6 +121,11 @@
     LIBRARYNAME_DISABLE_COPY(Class) \
     LIBRARYNAME_DISABLE_MOVE(Class)
 
+/**********************************
+ * Helpers
+ *********************************/
+#define LIBRARYNAME_E2I(enumValue)  (static_cast<int>(enumValue))
+
 /*!
  * \endcond
  */
