@@ -16,9 +16,13 @@ Icons set in the folder [`icons/`][dir-icons] use the [Freedesktop Icon Theme Sp
     - `show.png`: https://www.flaticon.com/free-icon/eye_159604 (author: _Gregor Cresnar_)
   - _512:_
     - `cancel.png`: https://www.flaticon.com/free-icon/x-button_458594 (author: _Alfredo Hernandez_)
+    - `clean.png`: https://www.flaticon.com/free-icon/broom_9742093 (author: _LAFS_)
+    - `clean2.png`: https://www.flaticon.com/free-icon/cleaning_1619829 (author: _Flat Icons_)
     - `click.png`: https://www.flaticon.com/free-icon/touch_10446195 (author: _Hilmy Abiyyu_)
     - `edit.png`: https://www.flaticon.com/free-icon/compose_10747217 (author: _Arkinasi_)
     - `refresh.png`: https://www.flaticon.com/free-icon/reload_560463 (author: _Freepik_)
+    - `save.png`: https://www.flaticon.com/free-icon/diskette_489707 (author: _Freepik_)
+    - `save2.png`: https://www.flaticon.com/free-icon/diskette_489707 (author: _Freepik_)
     - `stopwatch.png`: https://www.flaticon.com/free-icon/timer_17772420 (author: _Fantasyou_)
 - **Status:**
   - `question.png`: https://www.flaticon.com/free-icon/question-mark_10264065 (author: _Fathema Khanom_)
@@ -28,3 +32,5 @@ Icons set in the folder [`icons/`][dir-icons] use the [Freedesktop Icon Theme Sp
 [dir-icons]: icons/
 
 [specs-icons]: https://specifications.freedesktop.org/icon-theme-spec/latest/
+
+<a href="https://www.flaticon.com/free-icons/save" title="save icons">Save icons created by Freepik - Flaticon</a>
