@@ -56,7 +56,7 @@ Below, list of required dependencies:
 
 | Dependencies | VCPKG package | Comments |
 |:-:|:-:|:-:|
-| [Qt][qt-official] | / | Compatible with **Qt6.x**<b>Compatible with **Qt5.15.x** |
+| [Qt][qt-official] | / | Compatible with **Qt6.x**<br>Compatible with **Qt5.15.x** |
 | Native APIs | / | Please refer to section [supported platform][anchor-platforms] for more details |
 
 > [!NOTE]

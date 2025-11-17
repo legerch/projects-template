@@ -53,7 +53,7 @@ Below, list of required dependencies:
 
 | Dependencies | VCPKG package | Comments |
 |:-:|:-:|:-:|
-| [Qt][qt-official] | / | Compatible with **Qt6.x**<b>Compatible with **Qt5.15.x** |
+| [Qt][qt-official] | / | Compatible with **Qt6.x**<br>Compatible with **Qt5.15.x** |
 
 > [!NOTE]
 > Dependency manager [VCPKG][vcpkg-tutorial] is not mandatory, this is only a note to be able to list needed packages
