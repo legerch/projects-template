@@ -20,16 +20,27 @@ set(CMAKE_AUTORCC ON)
 
 # Set needed packages
 ## Qt packages
-find_package(QT NAMES Qt6 Qt5 COMPONENTS Core Test REQUIRED)
-find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Test REQUIRED)
+set(PROJECT_QT_PACKAGES
+    Core
+    Test
+)
+
+find_package(QT NAMES Qt6 Qt5 COMPONENTS ${PROJECT_QT_PACKAGES} REQUIRED)
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS ${PROJECT_QT_PACKAGES} REQUIRED)
+
+list(TRANSFORM PROJECT_QT_PACKAGES PREPEND "Qt${QT_VERSION_MAJOR}::")
 
 ## Other library packages
 ### Example: find_package(nlohmann_json 3.11.3 REQUIRED)
 find_package(GTest 1.11.0 REQUIRED)
 
+# Defines useful path variables for easier CMake configuration
+set(PROJECT_DIR_TESTS_EXTERNAL_RSC  "${CMAKE_CURRENT_SOURCE_DIR}/external-ressources/")
+
+# Manage library files
 ## Set tests compilation definitions
 set(PROJECT_DEFS_PRIV
-    LIBRARYNAME_TESTS_DIR_EXTERNAL_RSC="${CMAKE_CURRENT_SOURCE_DIR}/external-ressources/"
+    LIBRARYNAME_TESTS_DIR_EXTERNAL_RSC="${PROJECT_DIR_TESTS_EXTERNAL_RSC}"
 )
 
 ## Set library linking
@@ -40,8 +51,7 @@ set(PROJECT_LINKING_DIR
 
 ### Linking libs
 set(PROJECT_LINKING_LIB
-    Qt${QT_VERSION_MAJOR}::Core
-    Qt${QT_VERSION_MAJOR}::Test
+    ${PROJECT_QT_PACKAGES}
 
     GTest::gtest_main
     GTest::gtest        # Only if custom main loop is used
