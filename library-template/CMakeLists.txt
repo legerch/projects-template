@@ -1,5 +1,5 @@
 # CMakeLists file based on project template repository: https://github.com/legerch/projects-template
-## Template file version: 2025-09-18
+## Template file version: 2025-12-26
 
 cmake_minimum_required(VERSION 3.20)
 
@@ -49,6 +49,7 @@ message(STATUS "Project \"${PROJECT_NAME}\" compiled with C++ standard ${CMAKE_C
 
 # Set needed packages
 ## Qt packages
+find_package(QT NAMES Qt6 Qt5)  # Load Qt CMake specific cfg (allow to have access to ${QT_VERSION_MAJOR} for example)
 set(PROJECT_QT_PACKAGES
     Core
 )
@@ -123,7 +124,6 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
 endif()
 
 # Finalize Qt packages managements
-find_package(QT NAMES Qt6 Qt5 COMPONENTS ${PROJECT_QT_PACKAGES} REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS ${PROJECT_QT_PACKAGES} REQUIRED)
 
 list(TRANSFORM PROJECT_QT_PACKAGES PREPEND "Qt${QT_VERSION_MAJOR}::")
