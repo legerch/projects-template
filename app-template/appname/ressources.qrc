@@ -15,10 +15,12 @@
         <file>assets/icons/light/actions/512/cancel.png</file>
         <file>assets/icons/light/actions/512/clean.png</file>
         <file>assets/icons/light/actions/512/click.png</file>
+        <file>assets/icons/light/actions/512/download.png</file>
         <file>assets/icons/light/actions/512/edit.png</file>
         <file>assets/icons/light/actions/512/refresh.png</file>
         <file>assets/icons/light/actions/512/save.png</file>
         <file>assets/icons/light/actions/512/stopwatch.png</file>
+        <file>assets/icons/light/actions/512/upload.png</file>
 
         <file>assets/icons/light/status/512/question.png</file>
         <file>assets/icons/light/status/512/success.png</file>
@@ -32,10 +34,12 @@
         <file>assets/icons/dark/actions/512/cancel.png</file>
         <file>assets/icons/dark/actions/512/clean.png</file>
         <file>assets/icons/dark/actions/512/click.png</file>
+        <file>assets/icons/dark/actions/512/download.png</file>
         <file>assets/icons/dark/actions/512/edit.png</file>
         <file>assets/icons/dark/actions/512/refresh.png</file>
         <file>assets/icons/dark/actions/512/save.png</file>
         <file>assets/icons/dark/actions/512/stopwatch.png</file>
+        <file>assets/icons/dark/actions/512/upload.png</file>
 
         <file>assets/icons/dark/status/512/question.png</file>
         <file>assets/icons/dark/status/512/success.png</file>

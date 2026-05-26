@@ -19,11 +19,13 @@ Icons set in the folder [`icons/`][dir-icons] use the [Freedesktop Icon Theme Sp
     - `clean.png`: https://www.flaticon.com/free-icon/broom_9742093 (author: _LAFS_)
     - `clean2.png`: https://www.flaticon.com/free-icon/cleaning_1619829 (author: _Flat Icons_)
     - `click.png`: https://www.flaticon.com/free-icon/touch_10446195 (author: _Hilmy Abiyyu_)
+    - `download.png`: https://www.flaticon.com/free-icon/download_9502265 (author: _Kliwir Art_)
     - `edit.png`: https://www.flaticon.com/free-icon/compose_10747217 (author: _Arkinasi_)
     - `refresh.png`: https://www.flaticon.com/free-icon/reload_560463 (author: _Freepik_)
     - `save.png`: https://www.flaticon.com/free-icon/diskette_489707 (author: _Freepik_)
     - `save2.png`: https://www.flaticon.com/free-icon/diskette_489707 (author: _Freepik_)
     - `stopwatch.png`: https://www.flaticon.com/free-icon/timer_17772420 (author: _Fantasyou_)
+    - `upload.png`: https://www.flaticon.com/free-icon/upload_9502271 (author: _Kliwir Art_)
 - **Status:**
   - `question.png`: https://www.flaticon.com/free-icon/question-mark_10264065 (author: _Fathema Khanom_)
   - `success.png`: https://www.flaticon.com/free-icon/checked_190411 (author: _Roundicons_)
