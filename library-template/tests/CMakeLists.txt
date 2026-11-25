@@ -1,5 +1,5 @@
 # CMakeLists file based on project template repository: https://github.com/legerch/projects-template
-## Template file version: 2025-12-26 
+## Template file version: 2026-11-25
 
 cmake_minimum_required(VERSION 3.20)
 
@@ -79,7 +79,7 @@ target_link_libraries(${PROJECT_NAME} LINK_PUBLIC ${PROJECT_LINKING_LIB})
 # Specify compiler options
 target_compile_options(${PROJECT_NAME} PRIVATE
     $<$<CXX_COMPILER_ID:GNU>:-Wall -Wextra -Werror=return-type -Wshadow -Wlogical-op -Wduplicated-cond -Wduplicated-branches>
-    $<$<CXX_COMPILER_ID:Clang>:-Wall -Wextra -Werror=return-type -Wshadow -Wlogical-op -Wduplicated-cond -Wduplicated-branches>
+    $<$<CXX_COMPILER_ID:Clang,AppleClang>:-Wall -Wextra -Werror=return-type -Wshadow>
     $<$<CXX_COMPILER_ID:MSVC>:/W3 /wd4251>
 )
 
