@@ -47,12 +47,12 @@ message(STATUS "Project \"${PROJECT_NAME}\" will use at least C++ standard ${PRO
 # Set needed packages
 ## Qt packages
 find_package(QT NAMES Qt6 Qt5)  # Load Qt CMake specific cfg (allow to have access to ${QT_VERSION_MAJOR} for example)
-set(PROJECT_QT_PACKAGES
+set(PROJECT_QT_COMPONENTS
     Core
 )
 
-find_package(Qt${QT_VERSION_MAJOR} COMPONENTS ${PROJECT_QT_PACKAGES} REQUIRED)
-list(TRANSFORM PROJECT_QT_PACKAGES PREPEND "Qt${QT_VERSION_MAJOR}::")
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS ${PROJECT_QT_COMPONENTS} REQUIRED)
+list(TRANSFORM PROJECT_QT_COMPONENTS PREPEND "Qt${QT_VERSION_MAJOR}::" OUTPUT_VARIABLE PROJECT_QT_PACKAGES)
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_standard_project_setup(REQUIRES 6.8)

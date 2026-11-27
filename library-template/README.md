@@ -18,6 +18,9 @@
   - [2.2. Dependencies](#22-dependencies)
 - [3. How to build](#3-how-to-build)
   - [3.1. CMake Usage](#31-cmake-usage)
+    - [3.1.1. Find library](#311-find-library)
+    - [3.1.2. Link library](#312-link-library)
+    - [3.1.3. Install library](#313-install-library)
   - [3.2. CMake options](#32-cmake-options)
 - [4. How to use](#4-how-to-use)
   - [4.1. Usage](#41-usage)
@@ -64,18 +67,44 @@ Below, list of required dependencies:
 
 # 3. How to build
 ## 3.1. CMake Usage
+### 3.1.1. Find library
 
-This library can be use as an _embedded library_ in a subdirectory of your project (like a _git submodule_ for example) :
-1. In the **root** CMakeLists, add instructions :
+This library can be retrieved by two ways:
+- **As an embedded library**: library is put in a subdirectory of your project (like a _git submodule_ for example). In the **root** CMakeLists, add instructions :
 ```cmake
 add_subdirectory(mylibrary) # Or if library is put in a folder "dependencies" : add_subdirectory(dependencies/mylibrary)
 ```
 
-2. In the **application/library** CMakeLists, add instructions :
+- **As an installed library**: library has been installed (see [install library][anchor-cmake-install] section). In the **application/library** CMakeLists, add instructions (`<install-dir>` must be part of `CMAKE_PREFIX_PATH`) :
+```cmake
+find_package(mylibrary REQUIRED)
+```
+
+### 3.1.2. Link library
+
+Whatever the way used to retrieve the library, its target is named `mylibrary::mylibrary`. In the **application/library** CMakeLists, add instructions :
 ```cmake
 # Link needed libraries
 target_link_libraries(${PROJECT_NAME} PRIVATE mylibrary::mylibrary)
 ```
+
+### 3.1.3. Install library
+
+Installation is only performed on explicit call (see option `LIBRARYNAME_INSTALL` in [CMake options][anchor-cmake-opts]) :
+```shell
+cmake -B build -DCMAKE_BUILD_TYPE=Release
+cmake --build build --config Release
+cmake --install build --config Release --prefix <install-dir>
+```
+
+> [!NOTE]
+> `--config` is needed by multi-configuration generators (like _Visual Studio_), `CMAKE_BUILD_TYPE` is used by others (like _Ninja_ or _Makefiles_). Using both allow to have commands working with all generators.
+
+Installed files are:
+- `<install-dir>/bin/`: Shared library (Windows `.dll`)
+- `<install-dir>/lib/`: Shared library (Linux `.so`, macOS `.dylib`) and import library (Windows `.lib`)
+- `<install-dir>/include/mylibrary/`: Public headers
+- `<install-dir>/lib/cmake/mylibrary/`: CMake package files, used by `find_package()`
 
 ## 3.2. CMake options
 
@@ -139,6 +168,7 @@ This library is licensed under [MIT license][repo-license-url].
 <!-- Anchor of this page -->
 [anchor-platforms]: #12-supported-platforms
 [anchor-cmake-opts]: #32-cmake-options
+[anchor-cmake-install]: #313-install-library
 
 <!-- Links of this repository -->
 [repo-home]: https://github.com/username/projectname

@@ -45,7 +45,7 @@ message(STATUS "Project \"${PROJECT_NAME}\" will use at least C++ standard ${PRO
 # Set needed packages
 ## Qt packages
 find_package(QT NAMES Qt6 Qt5)  # Load Qt CMake specific cfg (allow to have access to ${QT_VERSION_MAJOR} for example)
-set(PROJECT_QT_PACKAGES
+set(PROJECT_QT_COMPONENTS
     Core
 )
 
@@ -127,9 +127,9 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
 endif()
 
 # Finalize Qt packages managements
-find_package(Qt${QT_VERSION_MAJOR} COMPONENTS ${PROJECT_QT_PACKAGES} REQUIRED)
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS ${PROJECT_QT_COMPONENTS} REQUIRED)
 
-list(TRANSFORM PROJECT_QT_PACKAGES PREPEND "Qt${QT_VERSION_MAJOR}::")
+list(TRANSFORM PROJECT_QT_COMPONENTS PREPEND "Qt${QT_VERSION_MAJOR}::" OUTPUT_VARIABLE PROJECT_QT_PACKAGES)
 set(PROJECT_LINKING_LIB_PUB ${PROJECT_LINKING_LIB_PUB} ${PROJECT_QT_PACKAGES})
 
 # Manage options
@@ -189,6 +189,7 @@ target_include_directories(${PROJECT_NAME}
 if(LIBRARYNAME_INSTALL)
     ## Library binaries
     install(TARGETS ${PROJECT_NAME}
+        EXPORT  ${PROJECT_NAME}Targets
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}     # Windows: .dll
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}     # Linux/macOS: .so/.dylib
         ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}     # Windows: .lib (import library)
@@ -203,6 +204,29 @@ if(LIBRARYNAME_INSTALL)
     ## Generated public headers
     install(FILES "${PROJECT_DIR_GENERATED}/${PROJECT_FILE_GLOBAL}"
         DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}"
+    )
+
+    ## Package config files: allow to use "find_package(${PROJECT_NAME})"
+    include(CMakePackageConfigHelpers)
+    set(PROJECT_DIR_INSTALL_CMAKE "${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}")
+
+    install(EXPORT ${PROJECT_NAME}Targets
+        NAMESPACE   ${PROJECT_NAME}::
+        DESTINATION "${PROJECT_DIR_INSTALL_CMAKE}"
+    )
+
+    configure_package_config_file("cmake/Config.cmake.in" "${PROJECT_DIR_GENERATED}/${PROJECT_NAME}Config.cmake"
+        INSTALL_DESTINATION "${PROJECT_DIR_INSTALL_CMAKE}"
+    )
+    write_basic_package_version_file("${PROJECT_DIR_GENERATED}/${PROJECT_NAME}ConfigVersion.cmake"
+        VERSION         ${PROJECT_VERSION}
+        COMPATIBILITY   SameMajorVersion
+    )
+
+    install(FILES
+        "${PROJECT_DIR_GENERATED}/${PROJECT_NAME}Config.cmake"
+        "${PROJECT_DIR_GENERATED}/${PROJECT_NAME}ConfigVersion.cmake"
+        DESTINATION "${PROJECT_DIR_INSTALL_CMAKE}"
     )
 endif()
 

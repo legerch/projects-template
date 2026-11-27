@@ -29,6 +29,9 @@ This is just a template folder, multiple files will have to be adjusted to the l
     - Set project properties/informations
     - If not using _Qt framework_, simply remove all _Qt_ related lines
     - Set files and dependencies to use
+  - `cmake/Config.cmake.in`: Package configuration file used by `find_package()` when library is installed
+    - Qt dependencies are managed automatically
+    - Other **public** dependencies (set in `PROJECT_LINKING_LIB_PUB`) must be added **manually** via `find_dependency()`, private ones must not be added
 - Library files:
   - `include/libname/`:
     - Rename it to the library name, this is the name that will be used when someone will include one of the headers
