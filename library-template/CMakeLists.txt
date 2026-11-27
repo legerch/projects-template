@@ -83,7 +83,11 @@ set(PROJECT_LINKING_DIR
 )
 
 ### Linking libs
-set(PROJECT_LINKING_LIB
+set(PROJECT_LINKING_LIB_PUB     # Used in public headers (library users also need it)
+
+)
+
+set(PROJECT_LINKING_LIB_PRIV    # Only used in sources (hidden from library users)
     # Example: nlohmann_json::nlohmann_json
 )
 
@@ -123,7 +127,7 @@ endif()
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS ${PROJECT_QT_PACKAGES} REQUIRED)
 
 list(TRANSFORM PROJECT_QT_PACKAGES PREPEND "Qt${QT_VERSION_MAJOR}::")
-set(PROJECT_LINKING_LIB ${PROJECT_LINKING_LIB} ${PROJECT_QT_PACKAGES})
+set(PROJECT_LINKING_LIB_PUB ${PROJECT_LINKING_LIB_PUB} ${PROJECT_QT_PACKAGES})
 
 # Manage options
 ## Example: if(LIBRARYNAME_USE_CUSTOM_BEHAVIOUR)
@@ -147,8 +151,11 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_${PROJECT_VERSION_CPP_MIN})
 
 # Link needed libraries
-target_link_directories(${PROJECT_NAME} PUBLIC ${PROJECT_LINKING_DIR})
-target_link_libraries(${PROJECT_NAME} LINK_PUBLIC ${PROJECT_LINKING_LIB})
+target_link_directories(${PROJECT_NAME} PRIVATE ${PROJECT_LINKING_DIR})
+target_link_libraries(${PROJECT_NAME}
+    PUBLIC  ${PROJECT_LINKING_LIB_PUB}
+    PRIVATE ${PROJECT_LINKING_LIB_PRIV}
+)
 
 # Specify compiler options
 target_compile_options(${PROJECT_NAME} PRIVATE

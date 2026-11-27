@@ -174,8 +174,8 @@ endif()
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_${PROJECT_VERSION_CPP_MIN})
 
 # Link needed libraries
-target_link_directories(${PROJECT_NAME} PUBLIC ${PROJECT_LINKING_DIR})
-target_link_libraries(${PROJECT_NAME} LINK_PUBLIC ${PROJECT_LINKING_LIB})
+target_link_directories(${PROJECT_NAME} PRIVATE ${PROJECT_LINKING_DIR})
+target_link_libraries(${PROJECT_NAME} PRIVATE ${PROJECT_LINKING_LIB})
 
 # Specify compiler options
 target_compile_options(${PROJECT_NAME} PRIVATE
