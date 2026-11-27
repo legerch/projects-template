@@ -8,8 +8,3 @@
 
 # Binaries
 build/
-
-# Auto generated files
-appname_global.h
-metadata/macos/Info.plist
-metadata/windows/infos.rc

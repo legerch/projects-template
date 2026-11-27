@@ -12,7 +12,3 @@ api-public/
 
 # Binaries
 build/
-
-# Auto generated files
-library_global.h
-metadata/windows/infos.rc
