@@ -32,7 +32,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
 # Define project options
-# Example: option(LIBRARYNAME_BUILD_TESTS "Use to enable/disable build of unit-tests." ON)
+option(LIBRARYNAME_BUILD_TESTS "Enable build of unit tests (require GoogleTest)." ON)
 option(LIBRARYNAME_INSTALL "Enable install rules (default: only when library is the main project)." ${PROJECT_IS_TOP_LEVEL})
 
 # Manage global compiler options
@@ -232,5 +232,6 @@ endif()
 
 # Do we need to build tests ?
 if(LIBRARYNAME_BUILD_TESTS)
+    enable_testing()        # Allow to run tests via "ctest"
     add_subdirectory(tests)
 endif()

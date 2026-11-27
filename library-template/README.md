@@ -22,6 +22,7 @@
     - [3.1.2. Link library](#312-link-library)
     - [3.1.3. Install library](#313-install-library)
   - [3.2. CMake options](#32-cmake-options)
+  - [3.3. Run tests](#33-run-tests)
 - [4. How to use](#4-how-to-use)
   - [4.1. Usage](#41-usage)
   - [4.2. Library version](#42-library-version)
@@ -110,7 +111,16 @@ Installed files are:
 
 This library provide some **CMake** build options:
 - `LIBRARYNAME_INSTALL`: Enable install rules (`cmake --install`). Default to `ON` when library is the main project, `OFF` when used via `add_subdirectory()` (avoid to install library headers/binaries along with parent project).
+- `LIBRARYNAME_BUILD_TESTS`: Enable build of unit tests (require [GoogleTest][gtest-repo]). Default to `ON`.
 - _add here your custom CMake library options, for each, add: the name, the default value, when to use and what consequences_
+
+## 3.3. Run tests
+
+```shell
+cmake -B build -DCMAKE_BUILD_TYPE=Release -DLIBRARYNAME_BUILD_TESTS=ON
+cmake --build build --config Release
+ctest --test-dir build --build-config Release --output-on-failure
+```
 
 # 4. How to use
 ## 4.1. Usage
