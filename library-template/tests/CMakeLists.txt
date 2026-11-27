@@ -1,5 +1,5 @@
 # CMakeLists file based on project template repository: https://github.com/legerch/projects-template
-## Template file version: 2026-11-25
+## Template file version: 2026-11-27
 
 cmake_minimum_required(VERSION 3.20)
 
@@ -9,6 +9,9 @@ set(PROJECT_NAME libraryname-tests)
 # Set project configuration
 ## Generic properties
 project(${PROJECT_NAME} LANGUAGES CXX)
+
+# Set minimum C++ standard required (inherited from library project, enforced on target via "target_compile_features()")
+message(STATUS "Project \"${PROJECT_NAME}\" will use at least C++ standard ${PROJECT_VERSION_CPP_MIN}")
 
 ## Qt specific properties
 set(CMAKE_AUTOUIC ON)
@@ -71,6 +74,9 @@ set(FILES_SOURCES
 # Add files to the test application
 set(PROJECT_FILES ${FILES_HEADERS} ${FILES_SOURCES})
 add_executable(${PROJECT_NAME} ${PROJECT_FILES})
+
+# Set minimum C++ standard required
+target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_${PROJECT_VERSION_CPP_MIN})
 
 # Link needed libraries
 target_link_directories(${PROJECT_NAME} PUBLIC ${PROJECT_LINKING_DIR})

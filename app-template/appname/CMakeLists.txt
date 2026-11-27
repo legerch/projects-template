@@ -1,5 +1,5 @@
 # CMakeLists file based on project template repository: https://github.com/legerch/projects-template
-## Template file version: 2026-11-25
+## Template file version: 2026-11-27
 
 cmake_minimum_required(VERSION 3.20)
 
@@ -41,14 +41,8 @@ option(APPNAME_USE_QML "Enable to use QML instead of Widgets." OFF)
 ## For MSVC: force to read source code as UTF-8 file (already default behaviour on GCC/Clang)
 add_compile_options("$<$<CXX_COMPILER_ID:MSVC>:/utf-8>")
 
-# Set C++ standard to use
-if(DEFINED CMAKE_CXX_STANDARD)
-    if(${CMAKE_CXX_STANDARD} LESS ${PROJECT_VERSION_CPP_MIN})
-        message(FATAL_ERROR "Project ${PROJECT_NAME} require at least C++ standard ${PROJECT_VERSION_CPP_MIN}")
-    endif()
-endif()
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-message(STATUS "Project \"${PROJECT_NAME}\" compiled with C++ standard ${CMAKE_CXX_STANDARD}")
+# Set minimum C++ standard required (enforced on target via "target_compile_features()")
+message(STATUS "Project \"${PROJECT_NAME}\" will use at least C++ standard ${PROJECT_VERSION_CPP_MIN}")
 
 # Set needed packages
 ## Qt packages
@@ -175,6 +169,9 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
 else()
     add_executable(${PROJECT_NAME} ${PROJECT_FILES})
 endif()
+
+# Set minimum C++ standard required
+target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_${PROJECT_VERSION_CPP_MIN})
 
 # Link needed libraries
 target_link_directories(${PROJECT_NAME} PUBLIC ${PROJECT_LINKING_DIR})
