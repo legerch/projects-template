@@ -48,10 +48,11 @@ This is just a template folder, multiple files will have to be adjusted to the l
 - Test files:
   - `CMakelists.txt`:
     - Set test application needed files
-    - If not using _Qt framework_ for the tests (running Qt app for tests is generally **not needed**, except if you want to test signals like with [_QSignalSpy_][qt-class-qsignalspy] for example) : 
-      - Simply remove all _Qt_ related lines
-      - Use `GTest::gtest_main` for linking _[Google Tests][repo-gtest]_ library
-      - Delete `main.cpp` file (only needed if using custom behaviour like when using Qt framework)
+    - By default, _[Google Tests][repo-gtest]_ main loop is used (`GTest::gtest_main`): running a Qt event loop for the tests is generally **not needed**
+    - If a Qt event loop is needed (to test signals with [_QSignalSpy_][qt-class-qsignalspy] for example), use the custom main loop instead:
+      - Add `main.cpp` file to the tests sources
+      - Use `GTest::gtest` instead of `GTest::gtest_main`
+    - If library doesn't use _Qt framework_: simply remove all _Qt_ related lines and delete `main.cpp` file
   - `helpers/`: Contains classes that can be helpful during test execution
     - Class `TestRsc` is useful to manage external files: to compare an input and output files instead of harcoding those in test sources
   - `external-ressources`: Contains input/output test files, don't put headers or sources file in it, this is a ressource directory

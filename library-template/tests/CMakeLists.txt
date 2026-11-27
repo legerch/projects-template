@@ -4,7 +4,7 @@
 cmake_minimum_required(VERSION 3.22)
 
 # Set project properties
-set(PROJECT_NAME libraryname-tests)
+set(PROJECT_NAME ${PRJ_ID}-tests)     # "PRJ_ID" is inherited from library project
 
 # Set project configuration
 ## Generic properties
@@ -53,11 +53,11 @@ set(PROJECT_LINKING_DIR
 
 ### Linking libs
 set(PROJECT_LINKING_LIB
+    ${PRJ_ID}::${PRJ_ID}    # Library to test
     ${PROJECT_QT_PACKAGES}
 
     GTest::gtest_main
-    GTest::gtest        # Only if custom main loop is used
-    toolboxqt
+    #GTest::gtest           # Only if custom main loop is used
 )
 
 ## Set tests files
@@ -66,9 +66,9 @@ set(FILES_HEADERS
 )
 
 set(FILES_SOURCES
-    helpers/testsrsc.h
-
-    # main.cpp -> useful only if custom main loop is used
+    helpers/testsrsc.cpp
+    
+    #main.cpp               # Useful only if custom main loop is used
 )
 
 # Add files to the test application
@@ -94,4 +94,4 @@ target_compile_options(${PROJECT_NAME} PRIVATE
 target_compile_definitions(${PROJECT_NAME} PRIVATE ${PROJECT_DEFS_PRIV})
 
 # Specify include directories
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
+target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})     # Allow to include "helpers/xxx.h" from any test file
