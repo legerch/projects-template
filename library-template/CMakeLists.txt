@@ -33,6 +33,7 @@ set(CMAKE_AUTORCC ON)
 
 # Define project options
 # Example: option(LIBRARYNAME_BUILD_TESTS "Use to enable/disable build of unit-tests." ON)
+option(LIBRARYNAME_INSTALL "Enable install rules (default: only when library is the main project)." ${PROJECT_IS_TOP_LEVEL})
 
 # Manage global compiler options
 ## For MSVC: force to read source code as UTF-8 file (already default behaviour on GCC/Clang)
@@ -183,6 +184,27 @@ target_include_directories(${PROJECT_NAME}
     PRIVATE
         ${PROJECT_DIR_PRIV_SOURCES}                                 # Internal headers, only for internal use
 )
+
+# Manage installation (only performed on explicit call: "cmake --install <build-dir> --prefix <install-dir>")
+if(LIBRARYNAME_INSTALL)
+    ## Library binaries
+    install(TARGETS ${PROJECT_NAME}
+        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}     # Windows: .dll
+        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}     # Linux/macOS: .so/.dylib
+        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}     # Windows: .lib (import library)
+    )
+
+    ## Public headers (keep sub-directories structure, exclude ".in" template files)
+    install(DIRECTORY "${PROJECT_DIR_PUBLIC_HEADERS}/"
+        DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}"
+        FILES_MATCHING PATTERN "*.h"
+    )
+
+    ## Generated public headers
+    install(FILES "${PROJECT_DIR_GENERATED}/${PROJECT_FILE_GLOBAL}"
+        DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}"
+    )
+endif()
 
 # Do we need to build tests ?
 if(LIBRARYNAME_BUILD_TESTS)

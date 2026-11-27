@@ -80,6 +80,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE mylibrary::mylibrary)
 ## 3.2. CMake options
 
 This library provide some **CMake** build options:
+- `LIBRARYNAME_INSTALL`: Enable install rules (`cmake --install`). Default to `ON` when library is the main project, `OFF` when used via `add_subdirectory()` (avoid to install library headers/binaries along with parent project).
 - _add here your custom CMake library options, for each, add: the name, the default value, when to use and what consequences_
 
 # 4. How to use
