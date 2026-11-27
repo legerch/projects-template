@@ -1,7 +1,7 @@
 # CMakeLists file based on project template repository: https://github.com/legerch/projects-template
 ## Template file version: 2026-11-27
 
-cmake_minimum_required(VERSION 3.20)
+cmake_minimum_required(VERSION 3.22)
 
 # Set project properties
 set(PROJECT_NAME libraryname-tests)

@@ -74,7 +74,7 @@ add_subdirectory(mylibrary) # Or if library is put in a folder "dependencies" : 
 2. In the **application/library** CMakeLists, add instructions :
 ```cmake
 # Link needed libraries
-target_link_libraries(${PROJECT_NAME} PRIVATE mylibrary)
+target_link_libraries(${PROJECT_NAME} PRIVATE mylibrary::mylibrary)
 ```
 
 ## 3.2. CMake options

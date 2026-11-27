@@ -1,7 +1,7 @@
 # CMakeLists file based on project template repository: https://github.com/legerch/projects-template
 ## Template file version: 2026-11-27
 
-cmake_minimum_required(VERSION 3.20)
+cmake_minimum_required(VERSION 3.22)
 
 # Set project properties
 set(PRJ_COMPANY_ID          mycompanyid)
@@ -52,6 +52,8 @@ set(PROJECT_QT_PACKAGES
 ### Example: find_package(nlohmann_json 3.11.3 REQUIRED)
 
 # Defines useful path variables for easier CMake configuration
+include(GNUInstallDirs)     # Provide standard install directories (CMAKE_INSTALL_INCLUDEDIR, CMAKE_INSTALL_LIBDIR, etc...)
+
 set(PROJECT_DIR_PUBLIC_HEADERS_ROOT "${PROJECT_SOURCE_DIR}/include")
 set(PROJECT_DIR_PUBLIC_HEADERS      "${PROJECT_DIR_PUBLIC_HEADERS_ROOT}/${PROJECT_NAME}")
 set(PROJECT_DIR_PRIV_SOURCES        "${PROJECT_SOURCE_DIR}/src")
@@ -141,6 +143,7 @@ set(PROJECT_FILES ${PROJECT_RESSOURCES} ${PROJECT_DIR_GENERATED}/${PROJECT_FILE_
 
 # Add files to the library
 add_library(${PROJECT_NAME} SHARED ${PROJECT_FILES})
+add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})    # Same target name than when using "find_package()"
 
 # Set version of library
 set_target_properties(${PROJECT_NAME} PROPERTIES
@@ -172,10 +175,13 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE ${PROJECT_DEFS_PRIV})
 # Specify include directories
 target_include_directories(${PROJECT_NAME}
     PUBLIC
-        ${PROJECT_DIR_PUBLIC_HEADERS_ROOT}      # Only expose public headers
-        ${PROJECT_DIR_GENERATED}/include        # Generated public headers (library_global.h)
+        $<BUILD_INTERFACE:${PROJECT_DIR_PUBLIC_HEADERS_ROOT}>       # Only expose public headers
+        $<BUILD_INTERFACE:${PROJECT_DIR_GENERATED}/include>         # Generated public headers (library_global.h)
+
+        $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>            # Once installed, all public headers are in the same directory
+    
     PRIVATE
-        ${PROJECT_DIR_PRIV_SOURCES}             # Internal headers, only for internal use
+        ${PROJECT_DIR_PRIV_SOURCES}                                 # Internal headers, only for internal use
 )
 
 # Do we need to build tests ?
