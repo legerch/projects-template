@@ -107,7 +107,7 @@ set(PROJECT_RESSOURCES
 # Manage platform differences
 ## Refer to: https://cmake.org/cmake/help/latest/variable/CMAKE_SYSTEM_NAME.html
 if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
-    set(PROJECT_DEFS_PUB ${PROJECT_DEFS_PUB}
+    set(PROJECT_DEFS_PRIV ${PROJECT_DEFS_PRIV}
         "NOMINMAX"  # Needed because Windows define macros "min/max", better to not defined those and use "std::min/std::max" instead
         "WIN32_LEAN_AND_MEAN=1"
     )
