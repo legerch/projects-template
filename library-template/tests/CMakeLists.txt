@@ -86,7 +86,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE ${PROJECT_LINKING_LIB})
 target_compile_options(${PROJECT_NAME} PRIVATE
     $<$<CXX_COMPILER_ID:GNU>:-Wall -Wextra -Werror=return-type -Wshadow -Wlogical-op -Wduplicated-cond -Wduplicated-branches>
     $<$<CXX_COMPILER_ID:Clang,AppleClang>:-Wall -Wextra -Werror=return-type -Wshadow>
-    $<$<CXX_COMPILER_ID:MSVC>:/W3 /wd4251>
+    $<$<CXX_COMPILER_ID:MSVC>:/W4 /wd4251 /we4715>
 )
 
 # Compile needed definitions
